@@ -34,10 +34,11 @@
   "home": {
     "heroTitle": "Découvrez les plus grandes aventures du Canada",
     "heroSubtitle": "Trouvez l'opérateur de tourisme d'aventure parfait pour votre prochaine expédition canadienne",
-    "searchPlaceholder": "Rechercher des aventures...",
+    "selectRegion": "Sélectionnez une région sur la carte pour explorer",
+    "clickToExplore": "Cliquez pour explorer",
     "featuredListings": "Aventures en vedette",
     "popularActivities": "Activités populaires",
-    "browseByRegion": "Parcourir par région",
+    "exploreByRegion": "Explorer par région",
     "operatorCount": "{count} opérateurs d'aventure répertoriés",
     "ctaTitle": "Êtes-vous un opérateur d'aventure?",
     "ctaSubtitle": "Inscrivez votre entreprise et atteignez des milliers d'aventuriers",
@@ -183,19 +184,14 @@
     "multiSport": "Multi-sport"
   },
   "regions": {
-    "britishColumbia": "Colombie-Britannique",
-    "alberta": "Alberta",
-    "ontario": "Ontario",
-    "quebec": "Québec",
-    "novaScotia": "Nouvelle-Écosse",
-    "newBrunswick": "Nouveau-Brunswick",
-    "princeEdwardIsland": "Île-du-Prince-Édouard",
-    "newfoundland": "Terre-Neuve",
-    "manitoba": "Manitoba",
-    "saskatchewan": "Saskatchewan",
-    "yukon": "Yukon",
-    "northwestTerritories": "Territoires du Nord-Ouest",
-    "nunavut": "Nunavut"
+    "western": "Ouest canadien",
+    "eastern": "Est canadien",
+    "atlantic": "Canada atlantique",
+    "northern": "Nord canadien",
+    "westernDescription": "Colombie-Britannique, Alberta, Saskatchewan et Manitoba",
+    "easternDescription": "Ontario et Québec",
+    "atlanticDescription": "Nouvelle-Écosse, Nouveau-Brunswick, Î.-P.-É., Terre-Neuve-et-Labrador",
+    "northernDescription": "Yukon, Territoires du Nord-Ouest et Nunavut"
   },
   "seasons": {
     "spring": "Printemps",

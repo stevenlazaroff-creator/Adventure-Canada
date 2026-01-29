@@ -34,10 +34,11 @@
   "home": {
     "heroTitle": "Discover Canada's Greatest Adventures",
     "heroSubtitle": "Find the perfect adventure tour operator for your next Canadian expedition",
-    "searchPlaceholder": "Search adventures...",
+    "selectRegion": "Select a region on the map to explore",
+    "clickToExplore": "Click to explore",
     "featuredListings": "Featured Adventures",
     "popularActivities": "Popular Activities",
-    "browseByRegion": "Browse by Region",
+    "exploreByRegion": "Explore by Region",
     "operatorCount": "{count} adventure operators listed",
     "ctaTitle": "Are you an adventure operator?",
     "ctaSubtitle": "Get your business listed and reach thousands of adventure seekers",
@@ -183,19 +184,14 @@
     "multiSport": "Multi-Sport"
   },
   "regions": {
-    "britishColumbia": "British Columbia",
-    "alberta": "Alberta",
-    "ontario": "Ontario",
-    "quebec": "Quebec",
-    "novaScotia": "Nova Scotia",
-    "newBrunswick": "New Brunswick",
-    "princeEdwardIsland": "Prince Edward Island",
-    "newfoundland": "Newfoundland",
-    "manitoba": "Manitoba",
-    "saskatchewan": "Saskatchewan",
-    "yukon": "Yukon",
-    "northwestTerritories": "Northwest Territories",
-    "nunavut": "Nunavut"
+    "western": "Western Canada",
+    "eastern": "Eastern Canada",
+    "atlantic": "Atlantic Canada",
+    "northern": "Northern Canada",
+    "westernDescription": "British Columbia, Alberta, Saskatchewan & Manitoba",
+    "easternDescription": "Ontario & Quebec",
+    "atlanticDescription": "Nova Scotia, New Brunswick, PEI, Newfoundland & Labrador",
+    "northernDescription": "Yukon, Northwest Territories & Nunavut"
   },
   "seasons": {
     "spring": "Spring",

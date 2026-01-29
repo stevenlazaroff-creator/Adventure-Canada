@@ -49,12 +49,11 @@ CREATE TABLE activities (
     display_order INT DEFAULT 0
 );
 
--- Regions (lookup table)
+-- Regions (4 grouped regions: Western, Eastern, Atlantic, Northern)
 CREATE TABLE regions (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     slug TEXT NOT NULL UNIQUE,
-    province_code CHAR(2),
     description TEXT,
     display_order INT DEFAULT 0
 );

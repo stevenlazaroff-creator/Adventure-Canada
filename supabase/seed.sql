@@ -15,18 +15,9 @@ INSERT INTO activities (name, slug, icon, display_order) VALUES
 ('Camping', 'camping', 'tent', 9),
 ('Multi-Sport', 'multi-sport', 'activity', 10);
 
--- Regions
-INSERT INTO regions (name, slug, province_code, display_order) VALUES
-('British Columbia', 'british-columbia', 'BC', 1),
-('Alberta', 'alberta', 'AB', 2),
-('Ontario', 'ontario', 'ON', 3),
-('Quebec', 'quebec', 'QC', 4),
-('Nova Scotia', 'nova-scotia', 'NS', 5),
-('New Brunswick', 'new-brunswick', 'NB', 6),
-('Prince Edward Island', 'prince-edward-island', 'PE', 7),
-('Newfoundland', 'newfoundland', 'NL', 8),
-('Manitoba', 'manitoba', 'MB', 9),
-('Saskatchewan', 'saskatchewan', 'SK', 10),
-('Yukon', 'yukon', 'YT', 11),
-('Northwest Territories', 'northwest-territories', 'NT', 12),
-('Nunavut', 'nunavut', 'NU', 13);
+-- Regions (4 grouped regions)
+INSERT INTO regions (name, slug, description, display_order) VALUES
+('Western Canada', 'western-canada', 'British Columbia, Alberta, Saskatchewan & Manitoba', 1),
+('Eastern Canada', 'eastern-canada', 'Ontario & Quebec', 2),
+('Atlantic Canada', 'atlantic-canada', 'Nova Scotia, New Brunswick, Prince Edward Island, Newfoundland & Labrador', 3),
+('Northern Canada', 'northern-canada', 'Yukon, Northwest Territories & Nunavut', 4);

@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { MobileNav } from './MobileNav';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { cn } from '@/lib/utils';
@@ -17,7 +16,7 @@ export function Header() {
   const locale = pathname.split('/')[1] || 'en';
 
   const navigation = [
-    { name: t('browse'), href: `/${locale}/browse/activities` },
+    { name: t('activities'), href: `/${locale}/browse/activities` },
     { name: t('regions'), href: `/${locale}/browse/regions` },
     { name: t('pricing'), href: `/${locale}/pricing` },
     { name: t('about'), href: `/${locale}/about` },
@@ -25,22 +24,18 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
       <nav className="container-wide">
-        <div className="flex h-20 md:h-24 items-center justify-between">
-          {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center">
-            <Image
-              src={locale === 'fr' ? '/images/logo-fr.jpg' : '/images/logo-en.png'}
-              alt={locale === 'fr' ? 'Aventure Canada' : 'Adventure Canada'}
-              width={280}
-              height={70}
-              className="h-14 md:h-16 w-auto"
-              priority
-            />
+        <div className="flex h-14 items-center justify-between">
+          {/* Home link - minimal text */}
+          <Link
+            href={`/${locale}`}
+            className="text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors"
+          >
+            {t('home')}
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - centered */}
           <div className="hidden lg:flex lg:items-center lg:gap-8">
             {navigation.map((item) => (
               <Link
