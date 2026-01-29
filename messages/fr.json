@@ -1,0 +1,206 @@
+{
+  "common": {
+    "siteName": "Aventure Canada",
+    "tagline": "Découvrez les plus grandes aventures du Canada",
+    "search": "Rechercher",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "learnMore": "En savoir plus",
+    "viewAll": "Voir tout",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer"
+  },
+  "nav": {
+    "home": "Accueil",
+    "browse": "Parcourir",
+    "activities": "Activités",
+    "regions": "Régions",
+    "pricing": "Tarifs",
+    "about": "À propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "listYourBusiness": "Inscrire votre entreprise"
+  },
+  "home": {
+    "heroTitle": "Découvrez les plus grandes aventures du Canada",
+    "heroSubtitle": "Trouvez l'opérateur de tourisme d'aventure parfait pour votre prochaine expédition canadienne",
+    "searchPlaceholder": "Rechercher des aventures...",
+    "featuredListings": "Aventures en vedette",
+    "popularActivities": "Activités populaires",
+    "browseByRegion": "Parcourir par région",
+    "operatorCount": "{count} opérateurs d'aventure répertoriés",
+    "ctaTitle": "Êtes-vous un opérateur d'aventure?",
+    "ctaSubtitle": "Inscrivez votre entreprise et atteignez des milliers d'aventuriers",
+    "ctaButton": "Inscrire votre entreprise"
+  },
+  "browse": {
+    "activities": "Activités",
+    "regions": "Régions",
+    "allActivities": "Toutes les activités",
+    "allRegions": "Toutes les régions",
+    "filters": "Filtres",
+    "sortBy": "Trier par",
+    "relevance": "Pertinence",
+    "rating": "Évaluation",
+    "nameAZ": "Nom A-Z",
+    "nameZA": "Nom Z-A",
+    "priceRange": "Gamme de prix",
+    "seasons": "Saisons",
+    "clearFilters": "Effacer les filtres",
+    "noResults": "Aucun résultat trouvé",
+    "noResultsMessage": "Essayez d'ajuster vos filtres ou termes de recherche",
+    "showingResults": "Affichage de {count} résultats"
+  },
+  "listing": {
+    "featured": "En vedette",
+    "verified": "Vérifié",
+    "contactInfo": "Coordonnées",
+    "visitWebsite": "Visiter le site web",
+    "sendInquiry": "Envoyer une demande",
+    "activities": "Activités offertes",
+    "location": "Emplacement",
+    "seasons": "Saisons d'opération",
+    "priceRange": "Gamme de prix",
+    "relatedListings": "Aventures similaires",
+    "inquiryForm": {
+      "title": "Envoyer une demande",
+      "name": "Votre nom",
+      "email": "Votre courriel",
+      "phone": "Téléphone (optionnel)",
+      "message": "Message",
+      "send": "Envoyer la demande",
+      "success": "Votre demande a été envoyée!",
+      "error": "Échec de l'envoi. Veuillez réessayer."
+    }
+  },
+  "pricing": {
+    "title": "Tarification simple et transparente",
+    "subtitle": "Choisissez le forfait qui convient à votre entreprise",
+    "monthly": "Mensuel",
+    "annual": "Annuel",
+    "annualSavings": "Économisez 2 mois",
+    "perMonth": "/mois",
+    "perYear": "/an",
+    "currentPlan": "Forfait actuel",
+    "upgrade": "Mettre à niveau",
+    "getStarted": "Commencer",
+    "features": {
+      "businessListing": "Nom et emplacement de l'entreprise",
+      "categoryListing": "Liste par catégorie",
+      "contactEmail": "Courriel de contact",
+      "phoneNumber": "Numéro de téléphone",
+      "websiteLink": "Lien vers le site web (backlink SEO)",
+      "description": "Description de l'entreprise",
+      "images": "Téléchargement d'images",
+      "logo": "Affichage du logo",
+      "analytics": "Tableau de bord analytique",
+      "priorityPlacement": "Placement prioritaire",
+      "featuredHomepage": "En vedette sur la page d'accueil",
+      "inquiryForm": "Formulaire de demande",
+      "verifiedBadge": "Badge vérifié"
+    },
+    "tiers": {
+      "free": {
+        "name": "Gratuit",
+        "description": "Soyez répertorié dans notre annuaire"
+      },
+      "basic": {
+        "name": "Base",
+        "description": "Visibilité essentielle pour votre entreprise"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Idéal pour les opérateurs en croissance"
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "Visibilité et prospects maximaux"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "overview": "Aperçu",
+    "editListing": "Modifier l'inscription",
+    "analytics": "Analytique",
+    "billing": "Facturation",
+    "profileCompleteness": "Complétude du profil",
+    "currentPlan": "Forfait actuel",
+    "quickStats": "Statistiques rapides",
+    "pageViews": "Pages vues",
+    "websiteClicks": "Clics sur le site web",
+    "phoneClicks": "Clics sur le téléphone",
+    "inquiries": "Demandes",
+    "upgradePrompt": "Passez à Pro pour accéder aux analytiques",
+    "manageBilling": "Gérer la facturation",
+    "viewInvoices": "Voir les factures"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié?",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "noAccount": "Vous n'avez pas de compte?",
+    "hasAccount": "Vous avez déjà un compte?",
+    "businessName": "Nom de l'entreprise",
+    "agreeToTerms": "J'accepte les conditions d'utilisation et la politique de confidentialité",
+    "loginSuccess": "Connexion réussie!",
+    "registerSuccess": "Compte créé avec succès!",
+    "logoutSuccess": "Déconnexion réussie"
+  },
+  "footer": {
+    "description": "Le premier annuaire canadien des opérateurs de tourisme d'aventure",
+    "quickLinks": "Liens rapides",
+    "forOperators": "Pour les opérateurs",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "copyright": "© {year} Aventure Canada. Tous droits réservés."
+  },
+  "activities": {
+    "rafting": "Rafting",
+    "hiking": "Randonnée",
+    "skiing": "Ski",
+    "kayaking": "Kayak",
+    "wildlifeTours": "Observation de la faune",
+    "dogSledding": "Traîneau à chiens",
+    "fishing": "Pêche",
+    "climbing": "Escalade",
+    "camping": "Camping",
+    "multiSport": "Multi-sport"
+  },
+  "regions": {
+    "britishColumbia": "Colombie-Britannique",
+    "alberta": "Alberta",
+    "ontario": "Ontario",
+    "quebec": "Québec",
+    "novaScotia": "Nouvelle-Écosse",
+    "newBrunswick": "Nouveau-Brunswick",
+    "princeEdwardIsland": "Île-du-Prince-Édouard",
+    "newfoundland": "Terre-Neuve",
+    "manitoba": "Manitoba",
+    "saskatchewan": "Saskatchewan",
+    "yukon": "Yukon",
+    "northwestTerritories": "Territoires du Nord-Ouest",
+    "nunavut": "Nunavut"
+  },
+  "seasons": {
+    "spring": "Printemps",
+    "summer": "Été",
+    "fall": "Automne",
+    "winter": "Hiver"
+  }
+}
