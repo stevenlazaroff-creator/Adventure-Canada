@@ -1,13 +1,25 @@
 import Stripe from 'stripe';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set');
+// Lazy initialization to avoid build-time errors when env vars aren't set
+let stripeInstance: Stripe | null = null;
+
+export function getStripe(): Stripe {
+  if (!stripeInstance) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is not set');
+    }
+    stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-02-24.acacia',
+    });
+  }
+  return stripeInstance;
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-10-28.acacia',
-  typescript: true,
-});
+export const stripe = {
+  get instance() {
+    return getStripe();
+  },
+};
 
 // Price IDs - these should match your Stripe dashboard
 export const PRICE_IDS = {
@@ -51,7 +63,7 @@ export async function createCheckoutSession({
   successUrl: string;
   cancelUrl: string;
 }) {
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     customer: customerId,
     mode: 'subscription',
     payment_method_types: ['card'],
@@ -87,7 +99,7 @@ export async function createPortalSession({
   customerId: string;
   returnUrl: string;
 }) {
-  const session = await stripe.billingPortal.sessions.create({
+  const session = await getStripe().billingPortal.sessions.create({
     customer: customerId,
     return_url: returnUrl,
   });
@@ -108,7 +120,7 @@ export async function getOrCreateCustomer({
   name?: string;
 }) {
   // Search for existing customer by metadata
-  const existingCustomers = await stripe.customers.search({
+  const existingCustomers = await getStripe().customers.search({
     query: `metadata['operator_id']:'${operatorId}'`,
   });
 
@@ -117,7 +129,7 @@ export async function getOrCreateCustomer({
   }
 
   // Create new customer
-  const customer = await stripe.customers.create({
+  const customer = await getStripe().customers.create({
     email,
     name,
     metadata: {
