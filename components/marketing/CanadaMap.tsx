@@ -61,12 +61,12 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
         aria-label="Interactive map of Canada showing four regions"
       >
         {/* Ocean background */}
-        <rect width="500" height="340" fill="#e8f4f8" rx="8" />
+        <rect width="500" height="340" fill="#cde4ed" rx="8" />
 
         {/* Hudson Bay */}
         <path
           d="M 230 140 Q 250 150, 260 180 Q 265 210, 250 235 Q 235 250, 210 245 Q 190 235, 195 210 Q 200 180, 210 160 Q 220 145, 230 140 Z"
-          fill="#d4e8f0"
+          fill="#b8d4e0"
         />
 
         {/* NORTHERN CANADA - YT, NT, NU and Arctic Islands */}
@@ -162,9 +162,9 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
         </g>
 
         {/* Great Lakes (drawn on top as water) */}
-        <ellipse cx="210" cy="275" rx="12" ry="8" fill="#d4e8f0" />
-        <ellipse cx="235" cy="278" rx="10" ry="6" fill="#d4e8f0" />
-        <ellipse cx="255" cy="282" rx="8" ry="5" fill="#d4e8f0" />
+        <ellipse cx="210" cy="275" rx="12" ry="8" fill="#b8d4e0" />
+        <ellipse cx="235" cy="278" rx="10" ry="6" fill="#b8d4e0" />
+        <ellipse cx="255" cy="282" rx="8" ry="5" fill="#b8d4e0" />
 
         {/* ATLANTIC CANADA - NS, NB, PEI, NL */}
         <g
@@ -259,7 +259,7 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
                 'px-5 py-2.5 rounded-full font-medium transition-all duration-300 border-2',
                 isHovered
                   ? 'bg-primary-600 text-white border-primary-600 shadow-lg scale-105'
-                  : 'bg-white text-gray-700 border-gray-200 hover:border-primary-400 hover:text-primary-600'
+                  : 'bg-beige-100 text-gray-700 border-beige-300 hover:border-primary-400 hover:text-primary-600'
               )}
             >
               {region.label}
