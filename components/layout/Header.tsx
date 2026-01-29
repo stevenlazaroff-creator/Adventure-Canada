@@ -27,15 +27,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
       <nav className="container-wide">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 md:h-24 items-center justify-between">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2">
+          <Link href={`/${locale}`} className="flex items-center">
             <Image
               src={locale === 'fr' ? '/images/logo-fr.jpg' : '/images/logo-en.png'}
               alt={locale === 'fr' ? 'Aventure Canada' : 'Adventure Canada'}
-              width={180}
-              height={40}
-              className="h-10 w-auto"
+              width={280}
+              height={70}
+              className="h-14 md:h-16 w-auto"
               priority
             />
           </Link>
