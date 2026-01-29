@@ -1,0 +1,206 @@
+{
+  "common": {
+    "siteName": "Adventure Canada",
+    "tagline": "Discover Canada's Greatest Adventures",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "nav": {
+    "home": "Home",
+    "browse": "Browse",
+    "activities": "Activities",
+    "regions": "Regions",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log In",
+    "register": "Sign Up",
+    "dashboard": "Dashboard",
+    "logout": "Log Out",
+    "listYourBusiness": "List Your Business"
+  },
+  "home": {
+    "heroTitle": "Discover Canada's Greatest Adventures",
+    "heroSubtitle": "Find the perfect adventure tour operator for your next Canadian expedition",
+    "searchPlaceholder": "Search adventures...",
+    "featuredListings": "Featured Adventures",
+    "popularActivities": "Popular Activities",
+    "browseByRegion": "Browse by Region",
+    "operatorCount": "{count} adventure operators listed",
+    "ctaTitle": "Are you an adventure operator?",
+    "ctaSubtitle": "Get your business listed and reach thousands of adventure seekers",
+    "ctaButton": "List Your Business"
+  },
+  "browse": {
+    "activities": "Activities",
+    "regions": "Regions",
+    "allActivities": "All Activities",
+    "allRegions": "All Regions",
+    "filters": "Filters",
+    "sortBy": "Sort by",
+    "relevance": "Relevance",
+    "rating": "Rating",
+    "nameAZ": "Name A-Z",
+    "nameZA": "Name Z-A",
+    "priceRange": "Price Range",
+    "seasons": "Seasons",
+    "clearFilters": "Clear Filters",
+    "noResults": "No listings found",
+    "noResultsMessage": "Try adjusting your filters or search terms",
+    "showingResults": "Showing {count} results"
+  },
+  "listing": {
+    "featured": "Featured",
+    "verified": "Verified",
+    "contactInfo": "Contact Information",
+    "visitWebsite": "Visit Website",
+    "sendInquiry": "Send Inquiry",
+    "activities": "Activities Offered",
+    "location": "Location",
+    "seasons": "Operating Seasons",
+    "priceRange": "Price Range",
+    "relatedListings": "Similar Adventures",
+    "inquiryForm": {
+      "title": "Send an Inquiry",
+      "name": "Your Name",
+      "email": "Your Email",
+      "phone": "Phone (optional)",
+      "message": "Message",
+      "send": "Send Inquiry",
+      "success": "Your inquiry has been sent!",
+      "error": "Failed to send inquiry. Please try again."
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Choose the plan that fits your business",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "annualSavings": "Save 2 months",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "currentPlan": "Current Plan",
+    "upgrade": "Upgrade",
+    "getStarted": "Get Started",
+    "features": {
+      "businessListing": "Business name & location",
+      "categoryListing": "Category listing",
+      "contactEmail": "Contact email",
+      "phoneNumber": "Phone number",
+      "websiteLink": "Website link (SEO backlink)",
+      "description": "Business description",
+      "images": "Image uploads",
+      "logo": "Logo display",
+      "analytics": "Analytics dashboard",
+      "priorityPlacement": "Priority placement",
+      "featuredHomepage": "Featured on homepage",
+      "inquiryForm": "Inquiry form",
+      "verifiedBadge": "Verified badge"
+    },
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "description": "Get listed in our directory"
+      },
+      "basic": {
+        "name": "Basic",
+        "description": "Essential visibility for your business"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Best for growing operators"
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "Maximum visibility & leads"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": "Overview",
+    "editListing": "Edit Listing",
+    "analytics": "Analytics",
+    "billing": "Billing",
+    "profileCompleteness": "Profile Completeness",
+    "currentPlan": "Current Plan",
+    "quickStats": "Quick Stats",
+    "pageViews": "Page Views",
+    "websiteClicks": "Website Clicks",
+    "phoneClicks": "Phone Clicks",
+    "inquiries": "Inquiries",
+    "upgradePrompt": "Upgrade to Pro to access analytics",
+    "manageBilling": "Manage Billing",
+    "viewInvoices": "View Invoices"
+  },
+  "auth": {
+    "login": "Log In",
+    "register": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "businessName": "Business Name",
+    "agreeToTerms": "I agree to the Terms of Service and Privacy Policy",
+    "loginSuccess": "Successfully logged in!",
+    "registerSuccess": "Account created successfully!",
+    "logoutSuccess": "Successfully logged out"
+  },
+  "footer": {
+    "description": "Canada's premier directory for adventure tour operators",
+    "quickLinks": "Quick Links",
+    "forOperators": "For Operators",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© {year} Adventure Canada. All rights reserved."
+  },
+  "activities": {
+    "rafting": "Rafting",
+    "hiking": "Hiking",
+    "skiing": "Skiing",
+    "kayaking": "Kayaking",
+    "wildlifeTours": "Wildlife Tours",
+    "dogSledding": "Dog Sledding",
+    "fishing": "Fishing",
+    "climbing": "Climbing",
+    "camping": "Camping",
+    "multiSport": "Multi-Sport"
+  },
+  "regions": {
+    "britishColumbia": "British Columbia",
+    "alberta": "Alberta",
+    "ontario": "Ontario",
+    "quebec": "Quebec",
+    "novaScotia": "Nova Scotia",
+    "newBrunswick": "New Brunswick",
+    "princeEdwardIsland": "Prince Edward Island",
+    "newfoundland": "Newfoundland",
+    "manitoba": "Manitoba",
+    "saskatchewan": "Saskatchewan",
+    "yukon": "Yukon",
+    "northwestTerritories": "Northwest Territories",
+    "nunavut": "Nunavut"
+  },
+  "seasons": {
+    "spring": "Spring",
+    "summer": "Summer",
+    "fall": "Fall",
+    "winter": "Winter"
+  }
+}
