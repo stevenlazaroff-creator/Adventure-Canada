@@ -14,173 +14,6 @@ interface CanadaMapProps {
   };
 }
 
-// Simplified but recognizable SVG paths for Canadian regions
-// Based on actual geographic boundaries
-
-const regionPaths = {
-  // Western Canada: BC, AB, SK, MB
-  western: `
-    M 89 295
-    L 89 193
-    L 99 178
-    L 88 161
-    L 93 143
-    L 110 147
-    L 125 137
-    L 130 147
-    L 145 147
-    L 160 147
-    L 175 147
-    L 190 147
-    L 205 147
-    L 220 155
-    L 220 175
-    L 220 195
-    L 220 215
-    L 220 235
-    L 220 255
-    L 220 275
-    L 220 295
-    L 205 305
-    L 190 310
-    L 175 305
-    L 160 295
-    L 145 295
-    L 130 295
-    L 115 295
-    L 100 295
-    Z
-  `,
-
-  // Eastern Canada: ON, QC
-  eastern: `
-    M 220 295
-    L 220 275
-    L 220 255
-    L 220 235
-    L 220 215
-    L 220 195
-    L 220 175
-    L 220 155
-    L 235 147
-    L 250 147
-    L 265 147
-    L 280 150
-    L 295 155
-    L 310 160
-    L 325 170
-    L 335 185
-    L 345 200
-    L 350 220
-    L 355 240
-    L 355 255
-    L 350 270
-    L 345 285
-    L 335 295
-    L 320 300
-    L 305 305
-    L 290 310
-    L 275 315
-    L 260 320
-    L 245 315
-    L 230 305
-    L 220 295
-    Z
-  `,
-
-  // Atlantic Canada: NS, NB, PEI, NL
-  atlantic: `
-    M 355 255
-    L 350 270
-    L 345 285
-    L 360 290
-    L 375 295
-    L 385 285
-    L 395 275
-    L 405 280
-    L 415 290
-    L 410 305
-    L 400 315
-    L 385 320
-    L 370 315
-    L 360 305
-    L 355 290
-    L 355 275
-    Z
-    M 420 230
-    L 435 220
-    L 450 225
-    L 460 240
-    L 455 260
-    L 440 275
-    L 420 280
-    L 405 270
-    L 400 250
-    L 410 235
-    Z
-  `,
-
-  // Northern Canada: YT, NT, NU
-  northern: `
-    M 89 193
-    L 89 140
-    L 89 100
-    L 100 80
-    L 120 65
-    L 145 55
-    L 175 50
-    L 210 50
-    L 245 55
-    L 280 65
-    L 310 80
-    L 335 100
-    L 355 120
-    L 370 145
-    L 380 170
-    L 385 195
-    L 380 215
-    L 370 230
-    L 355 240
-    L 350 220
-    L 345 200
-    L 335 185
-    L 325 170
-    L 310 160
-    L 295 155
-    L 280 150
-    L 265 147
-    L 250 147
-    L 235 147
-    L 220 155
-    L 205 147
-    L 190 147
-    L 175 147
-    L 160 147
-    L 145 147
-    L 130 147
-    L 125 137
-    L 110 147
-    L 93 143
-    L 88 161
-    L 99 178
-    L 89 193
-    Z
-    M 300 90
-    L 320 85
-    L 345 90
-    L 365 100
-    L 380 115
-    L 385 135
-    L 375 150
-    L 355 155
-    L 335 150
-    L 320 135
-    L 310 115
-    L 300 95
-    Z
-  `,
-};
-
 export function CanadaMap({ locale, labels }: CanadaMapProps) {
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
   const router = useRouter();
@@ -190,55 +23,190 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
   };
 
   const regions = [
-    { id: 'northern', slug: 'northern-canada', path: regionPaths.northern, label: labels.northern },
-    { id: 'western', slug: 'western-canada', path: regionPaths.western, label: labels.western },
-    { id: 'eastern', slug: 'eastern-canada', path: regionPaths.eastern, label: labels.eastern },
-    { id: 'atlantic', slug: 'atlantic-canada', path: regionPaths.atlantic, label: labels.atlantic },
+    { id: 'northern', slug: 'northern-canada', label: labels.northern },
+    { id: 'western', slug: 'western-canada', label: labels.western },
+    { id: 'eastern', slug: 'eastern-canada', label: labels.eastern },
+    { id: 'atlantic', slug: 'atlantic-canada', label: labels.atlantic },
   ];
 
   // Label positions for each region
   const labelPositions: Record<string, { x: number; y: number }> = {
-    western: { x: 155, y: 230 },
-    eastern: { x: 290, y: 250 },
-    atlantic: { x: 400, y: 290 },
-    northern: { x: 240, y: 110 },
+    western: { x: 115, y: 225 },
+    eastern: { x: 295, y: 235 },
+    atlantic: { x: 405, y: 230 },
+    northern: { x: 220, y: 85 },
+  };
+
+  const getRegionStyle = (regionId: string) => {
+    const isHovered = hoveredRegion === regionId;
+    return {
+      fill: isHovered ? '#9B1C31' : '#C41E3A',
+      stroke: '#1E3A5F',
+      strokeWidth: isHovered ? 2.5 : 1.5,
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      filter: isHovered ? 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))' : 'none',
+      transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+      transformOrigin: 'center',
+      transformBox: 'fill-box' as const,
+    };
   };
 
   return (
     <div className="relative w-full max-w-3xl mx-auto">
       <svg
-        viewBox="0 0 500 380"
+        viewBox="0 0 500 340"
         className="w-full h-auto"
         role="img"
         aria-label="Interactive map of Canada showing four regions"
       >
         {/* Ocean background */}
-        <rect width="500" height="380" fill="#e8f4f8" rx="8" />
+        <rect width="500" height="340" fill="#e8f4f8" rx="8" />
 
-        {/* Render each region */}
-        {regions.map((region) => {
-          const isHovered = hoveredRegion === region.id;
-          return (
-            <g key={region.id}>
-              <path
-                d={region.path}
-                className="cursor-pointer transition-all duration-300"
-                fill={isHovered ? '#9B1C31' : '#C41E3A'}
-                stroke="#1E3A5F"
-                strokeWidth={isHovered ? "3" : "2"}
-                style={{
-                  transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-                  transformOrigin: 'center',
-                  transformBox: 'fill-box',
-                  filter: isHovered ? 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))' : 'none',
-                }}
-                onMouseEnter={() => setHoveredRegion(region.id)}
-                onMouseLeave={() => setHoveredRegion(null)}
-                onClick={() => handleRegionClick(region.slug)}
-              />
-            </g>
-          );
-        })}
+        {/* Hudson Bay */}
+        <path
+          d="M 230 140 Q 250 150, 260 180 Q 265 210, 250 235 Q 235 250, 210 245 Q 190 235, 195 210 Q 200 180, 210 160 Q 220 145, 230 140 Z"
+          fill="#d4e8f0"
+        />
+
+        {/* NORTHERN CANADA - YT, NT, NU and Arctic Islands */}
+        <g
+          onMouseEnter={() => setHoveredRegion('northern')}
+          onMouseLeave={() => setHoveredRegion(null)}
+          onClick={() => handleRegionClick('northern-canada')}
+          style={getRegionStyle('northern')}
+        >
+          {/* Mainland Northern Territories */}
+          <path d="
+            M 55 145
+            L 55 115 L 60 95 L 70 75 L 85 60 L 105 50 L 130 45
+            L 160 42 L 190 45 L 220 50 L 250 60 L 275 75
+            L 295 92 L 310 112 L 320 135
+            L 330 140 L 340 135 L 355 132 L 370 140
+            L 378 155 L 375 175 L 360 190 L 340 195
+            L 320 190 L 305 175 L 300 155
+            L 295 145 L 280 140 L 265 142 L 250 140 L 235 142
+            L 230 140
+            L 210 160 L 200 180 L 195 210 L 200 235 L 210 245
+            L 195 250 L 180 245 L 170 235 L 168 220 L 172 200
+            L 180 180 L 185 160 L 180 145
+            L 165 142 L 150 145 L 135 142 L 120 145 L 105 142
+            L 90 145 L 75 142 L 60 145 L 55 145
+            Z
+          " />
+          {/* Victoria Island */}
+          <ellipse cx="180" cy="55" rx="35" ry="18" />
+          {/* Baffin Island */}
+          <path d="
+            M 340 45 Q 365 40, 390 50 Q 415 65, 425 90
+            Q 430 115, 420 140 Q 405 160, 380 165
+            Q 355 165, 340 150 Q 330 130, 335 105
+            Q 340 75, 340 45
+            Z
+          " />
+          {/* Ellesmere Island */}
+          <ellipse cx="330" cy="25" rx="25" ry="12" />
+        </g>
+
+        {/* WESTERN CANADA - BC, AB, SK, MB */}
+        <g
+          onMouseEnter={() => setHoveredRegion('western')}
+          onMouseLeave={() => setHoveredRegion(null)}
+          onClick={() => handleRegionClick('western-canada')}
+          style={getRegionStyle('western')}
+        >
+          {/* Main Western provinces */}
+          <path d="
+            M 55 145
+            L 60 145 L 75 142 L 90 145 L 105 142 L 120 145
+            L 135 142 L 150 145 L 165 142 L 180 145
+            L 180 160 L 180 180 L 180 200 L 180 220 L 180 240
+            L 180 260 L 180 280
+            L 165 280 L 150 280 L 135 280 L 120 280 L 105 280
+            L 90 280 L 75 280 L 60 280 L 50 280
+            L 48 265 L 45 250 L 42 235 L 45 220 L 42 205
+            L 48 190 L 52 175 L 55 160 L 55 145
+            Z
+          " />
+          {/* Vancouver Island */}
+          <ellipse cx="38" cy="248" rx="10" ry="25" />
+          {/* Haida Gwaii */}
+          <ellipse cx="32" cy="200" rx="6" ry="12" />
+        </g>
+
+        {/* EASTERN CANADA - ON, QC */}
+        <g
+          onMouseEnter={() => setHoveredRegion('eastern')}
+          onMouseLeave={() => setHoveredRegion(null)}
+          onClick={() => handleRegionClick('eastern-canada')}
+          style={getRegionStyle('eastern')}
+        >
+          <path d="
+            M 180 280
+            L 180 260 L 180 240 L 180 220 L 180 200 L 180 180
+            L 180 160 L 180 145
+            L 185 160 L 195 180 L 200 200 L 200 215
+            L 200 235
+            L 210 245 L 220 250 L 235 250
+            L 260 248 L 280 245 L 295 250
+            L 300 235 L 302 220 L 300 205
+            L 305 190 L 315 175 L 330 165
+            L 340 170 L 352 180 L 358 195 L 355 210
+            L 348 225 L 338 238 L 325 250
+            L 312 260 L 298 268 L 282 275 L 265 280
+            L 248 285 L 232 288 L 215 285 L 200 282
+            L 180 280
+            Z
+          " />
+          {/* Great Lakes cutouts (showing as water) */}
+        </g>
+
+        {/* Great Lakes (drawn on top as water) */}
+        <ellipse cx="210" cy="275" rx="12" ry="8" fill="#d4e8f0" />
+        <ellipse cx="235" cy="278" rx="10" ry="6" fill="#d4e8f0" />
+        <ellipse cx="255" cy="282" rx="8" ry="5" fill="#d4e8f0" />
+
+        {/* ATLANTIC CANADA - NS, NB, PEI, NL */}
+        <g
+          onMouseEnter={() => setHoveredRegion('atlantic')}
+          onMouseLeave={() => setHoveredRegion(null)}
+          onClick={() => handleRegionClick('atlantic-canada')}
+          style={getRegionStyle('atlantic')}
+        >
+          {/* Labrador */}
+          <path d="
+            M 355 210
+            L 358 195 L 365 180 L 378 170 L 392 175
+            L 400 190 L 395 210 L 382 225 L 365 230 L 355 220 L 355 210
+            Z
+          " />
+          {/* Newfoundland */}
+          <path d="
+            M 420 185
+            Q 438 178, 450 190 Q 460 205, 455 225
+            Q 448 245, 430 250 Q 412 248, 405 232
+            Q 402 215, 412 198 Q 418 188, 420 185
+            Z
+          " />
+          {/* New Brunswick / Nova Scotia area */}
+          <path d="
+            M 350 240
+            L 365 235 L 378 242 L 385 255 L 380 270
+            L 368 278 L 352 275 L 345 260 L 350 240
+            Z
+          " />
+          {/* Nova Scotia peninsula */}
+          <path d="
+            M 385 255
+            L 395 248 L 408 252 L 418 265 L 415 280
+            L 402 290 L 388 285 L 382 272 L 385 255
+            Z
+          " />
+          {/* PEI */}
+          <ellipse cx="392" cy="238" rx="12" ry="5" />
+          {/* Cape Breton */}
+          <ellipse cx="420" cy="245" rx="8" ry="10" />
+        </g>
 
         {/* Region labels */}
         {regions.map((region) => {
@@ -255,7 +223,7 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
               fill="white"
               style={{
                 transition: 'all 0.3s ease',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
+                textShadow: '1px 1px 3px rgba(0,0,0,0.8)',
               }}
             >
               {region.label}
@@ -263,10 +231,10 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
           );
         })}
 
-        {/* USA label for context */}
+        {/* USA label */}
         <text
-          x="180"
-          y="350"
+          x="130"
+          y="315"
           className="pointer-events-none select-none"
           textAnchor="middle"
           fontSize="10"
