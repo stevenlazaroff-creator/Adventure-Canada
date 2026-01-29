@@ -1,9 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mountain, Waves, TreePine, Fish, Snowflake } from 'lucide-react';
-import { SearchBar } from '@/components/search/SearchBar';
 import { CategoryCard } from '@/components/marketing/CategoryCard';
-import { RegionCard } from '@/components/marketing/RegionCard';
+import { CanadaMap } from '@/components/marketing/CanadaMap';
 
 export async function generateMetadata({
   params,
@@ -28,13 +28,6 @@ const activities = [
   { slug: 'camping', icon: TreePine, color: 'bg-emerald-600' },
 ];
 
-const featuredRegions = [
-  { slug: 'british-columbia', image: '/images/regions/bc.jpg' },
-  { slug: 'alberta', image: '/images/regions/alberta.jpg' },
-  { slug: 'ontario', image: '/images/regions/ontario.jpg' },
-  { slug: 'quebec', image: '/images/regions/quebec.jpg' },
-];
-
 export default async function HomePage({
   params,
 }: {
@@ -52,28 +45,54 @@ export default async function HomePage({
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-secondary-600 to-secondary-800 text-white">
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="relative container-wide py-20 md:py-32">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance">
+      {/* Hero Section with Logo and Map */}
+      <section className="bg-gradient-to-b from-gray-50 to-white py-8 md:py-12">
+        <div className="container-wide">
+          {/* Large Logo */}
+          <div className="flex justify-center mb-8 md:mb-12">
+            <Image
+              src={locale === 'fr' ? '/images/logo-fr.jpg' : '/images/logo-en.png'}
+              alt={locale === 'fr' ? 'Aventure Canada' : 'Adventure Canada'}
+              width={500}
+              height={125}
+              className="h-24 md:h-32 lg:h-40 w-auto"
+              priority
+            />
+          </div>
+
+          {/* Tagline */}
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-balance">
               {t('heroTitle')}
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-white/90">
+            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
               {t('heroSubtitle')}
             </p>
-
-            {/* Search Bar */}
-            <div className="mt-10">
-              <SearchBar locale={locale} />
-            </div>
-
-            {/* Operator Count */}
-            <p className="mt-8 text-white/70">
-              {t('operatorCount', { count: '500+' })}
-            </p>
           </div>
+
+          {/* Canada Map */}
+          <div className="mb-8">
+            <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-800 mb-6">
+              {t('exploreByRegion')}
+            </h2>
+            <p className="text-center text-gray-500 mb-8">
+              {t('selectRegion')}
+            </p>
+            <CanadaMap
+              locale={locale}
+              labels={{
+                western: tRegions('western'),
+                eastern: tRegions('eastern'),
+                atlantic: tRegions('atlantic'),
+                northern: tRegions('northern'),
+              }}
+            />
+          </div>
+
+          {/* Operator Count */}
+          <p className="text-center text-gray-500 mt-8">
+            {t('operatorCount', { count: '500+' })}
+          </p>
         </div>
       </section>
 
@@ -102,40 +121,6 @@ export default async function HomePage({
           >
             {tNav('activities')} →
           </Link>
-        </div>
-      </section>
-
-      {/* Browse by Region */}
-      <section className="bg-gray-100 py-16 md:py-24">
-        <div className="container-wide">
-          <div className="text-center mb-12">
-            <h2 className="section-title">{t('browseByRegion')}</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredRegions.map((region) => (
-              <RegionCard
-                key={region.slug}
-                href={`/${locale}/browse/regions/${region.slug}`}
-                name={tRegions(
-                  region.slug
-                    .split('-')
-                    .map((w, i) => (i === 0 ? w : w.charAt(0).toUpperCase() + w.slice(1)))
-                    .join('') as any
-                )}
-                image={region.image}
-              />
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <Link
-              href={`/${locale}/browse/regions`}
-              className="btn btn-outline btn-md"
-            >
-              {tNav('regions')} →
-            </Link>
-          </div>
         </div>
       </section>
 
