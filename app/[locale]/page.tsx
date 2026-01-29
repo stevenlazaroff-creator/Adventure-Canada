@@ -1,16 +1,16 @@
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
-import { Search, MapPin, Mountain, Waves, TreePine, Fish, Snowflake } from 'lucide-react';
+import { Mountain, Waves, TreePine, Fish, Snowflake } from 'lucide-react';
 import { SearchBar } from '@/components/search/SearchBar';
 import { CategoryCard } from '@/components/marketing/CategoryCard';
 import { RegionCard } from '@/components/marketing/RegionCard';
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
 
   return {
@@ -35,15 +35,20 @@ const featuredRegions = [
   { slug: 'quebec', image: '/images/regions/quebec.jpg' },
 ];
 
-export default function HomePage({
-  params: { locale },
+export default async function HomePage({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const t = useTranslations('home');
-  const tActivities = useTranslations('activities');
-  const tRegions = useTranslations('regions');
-  const tNav = useTranslations('nav');
+  const { locale } = await params;
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  const t = await getTranslations('home');
+  const tActivities = await getTranslations('activities');
+  const tRegions = await getTranslations('regions');
+  const tNav = await getTranslations('nav');
 
   return (
     <div>
