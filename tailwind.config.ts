@@ -9,6 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Background beige from logos
+        beige: {
+          50: '#FDFCFA',
+          100: '#F9F6F1',
+          200: '#F5F0E8',  // Main logo background color
+          300: '#EDE5D8',
+          400: '#E0D4C2',
+          500: '#D4C4AB',
+        },
         // Brand colors from logos
         brand: {
           red: {

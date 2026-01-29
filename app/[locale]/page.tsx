@@ -46,7 +46,7 @@ export default async function HomePage({
   return (
     <div>
       {/* Hero Section with Logo and Map */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-8 md:py-12">
+      <section className="py-8 md:py-12">
         <div className="container-wide">
           {/* Large Logo */}
           <div className="flex justify-center mb-8 md:mb-12">
@@ -133,7 +133,7 @@ export default async function HomePage({
           </p>
           <Link
             href={`/${locale}/pricing`}
-            className="btn bg-white text-primary-600 hover:bg-gray-100 btn-lg mt-8"
+            className="btn bg-beige-200 text-primary-600 hover:bg-beige-100 btn-lg mt-8"
           >
             {t('ctaButton')}
           </Link>
