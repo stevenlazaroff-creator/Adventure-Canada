@@ -24,13 +24,13 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-beige-200/95 backdrop-blur-sm border-b border-beige-300">
+    <header className="sticky top-0 z-50 bg-pantone-293">
       <nav className="container-wide">
         <div className="flex h-14 items-center justify-between">
           {/* Home link - minimal text */}
           <Link
             href={`/${locale}`}
-            className="text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors"
+            className="text-sm font-medium text-beige-200 hover:text-white transition-colors"
           >
             {t('home')}
           </Link>
@@ -42,10 +42,10 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary-600',
+                  'text-sm font-medium transition-colors hover:text-white',
                   pathname === item.href
-                    ? 'text-primary-600'
-                    : 'text-gray-700'
+                    ? 'text-white'
+                    : 'text-beige-200'
                 )}
               >
                 {item.name}
@@ -58,13 +58,13 @@ export function Header() {
             <LanguageSwitcher />
             <Link
               href={`/${locale}/login`}
-              className="text-sm font-medium text-gray-700 hover:text-primary-600"
+              className="text-sm font-medium text-beige-200 hover:text-white"
             >
               {t('login')}
             </Link>
             <Link
               href={`/${locale}/register`}
-              className="btn btn-primary btn-sm"
+              className="btn bg-beige-200 text-pantone-293 hover:bg-beige-100 btn-sm"
             >
               {t('listYourBusiness')}
             </Link>
@@ -75,7 +75,7 @@ export function Header() {
             <LanguageSwitcher />
             <button
               type="button"
-              className="p-2 text-gray-700"
+              className="p-2 text-beige-200"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open menu</span>

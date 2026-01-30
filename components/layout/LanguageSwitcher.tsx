@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="flex items-center rounded-lg border border-gray-200 overflow-hidden">
+    <div className="flex items-center rounded-lg border border-beige-300 overflow-hidden">
       {locales.map((locale) => (
         <button
           key={locale}
@@ -30,8 +30,8 @@ export function LanguageSwitcher() {
           className={cn(
             'px-3 py-1.5 text-sm font-medium transition-colors',
             locale === currentLocale
-              ? 'bg-primary-600 text-white'
-              : 'bg-white text-gray-600 hover:bg-gray-50'
+              ? 'bg-beige-200 text-pantone-293'
+              : 'bg-pantone-293 text-beige-200 hover:text-white'
           )}
         >
           {locale.toUpperCase()}

@@ -78,16 +78,16 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
   const getProvinceStroke = (provinceCode: string) => {
     const region = regionMapping[provinceCode];
     const isHovered = hoveredRegion === region;
-    return isHovered ? '#1E3A5F' : '#7a1528';
+    return isHovered ? '#0033A0' : '#7a1528';
   };
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
-      {/* Map container with ocean background */}
-      <div className="relative bg-[#a8d4e6] rounded-lg overflow-hidden">
+      {/* Map container - no background, sits on page beige */}
+      <div className="relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="-24500 -15050 55700 32000"
+          viewBox="-26000 -16500 60000 36000"
           className="w-full h-auto"
           role="img"
           aria-label="Interactive map of Canada showing four regions"
@@ -117,20 +117,6 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
               </path>
             );
           })}
-
-          {/* Region labels */}
-          <text x="-12000" y="8000" fontSize="1800" fontWeight="600" fill="white" textAnchor="middle" className="pointer-events-none" style={{ textShadow: '100px 100px 200px rgba(0,0,0,0.8)' }}>
-            {labels.western}
-          </text>
-          <text x="8000" y="10000" fontSize="1800" fontWeight="600" fill="white" textAnchor="middle" className="pointer-events-none" style={{ textShadow: '100px 100px 200px rgba(0,0,0,0.8)' }}>
-            {labels.eastern}
-          </text>
-          <text x="20000" y="10000" fontSize="1400" fontWeight="600" fill="white" textAnchor="middle" className="pointer-events-none" style={{ textShadow: '100px 100px 200px rgba(0,0,0,0.8)' }}>
-            {labels.atlantic}
-          </text>
-          <text x="2000" y="-2000" fontSize="1800" fontWeight="600" fill="white" textAnchor="middle" className="pointer-events-none" style={{ textShadow: '100px 100px 200px rgba(0,0,0,0.8)' }}>
-            {labels.northern}
-          </text>
         </svg>
       </div>
 
