@@ -18,7 +18,6 @@ export function Header() {
   const navigation = [
     { name: t('activities'), href: `/${locale}/activities` },
     { name: t('regions'), href: `/${locale}/regions` },
-    { name: t('pricing'), href: `/${locale}/pricing` },
     { name: t('about'), href: `/${locale}/about` },
     { name: t('contact'), href: `/${locale}/contact` },
   ];
@@ -63,7 +62,7 @@ export function Header() {
               {t('login')}
             </Link>
             <Link
-              href={`/${locale}/register`}
+              href={`/${locale}/pricing`}
               className="btn bg-beige-200 text-pantone-293 hover:bg-beige-100 btn-sm"
             >
               {t('listYourBusiness')}
