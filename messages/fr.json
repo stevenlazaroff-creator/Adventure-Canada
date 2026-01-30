@@ -121,10 +121,6 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "Idéal pour les opérateurs en croissance"
-      },
-      "premium": {
-        "name": "Premium",
         "description": "Visibilité et prospects maximaux"
       }
     }

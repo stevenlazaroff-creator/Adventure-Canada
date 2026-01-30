@@ -6,7 +6,7 @@
 -- ENUMS
 -- =============================================
 
-CREATE TYPE subscription_tier AS ENUM ('free', 'basic', 'pro', 'premium');
+CREATE TYPE subscription_tier AS ENUM ('free', 'basic', 'pro');
 CREATE TYPE listing_status AS ENUM ('draft', 'pending', 'active', 'suspended');
 CREATE TYPE inquiry_status AS ENUM ('new', 'read', 'replied', 'archived');
 
@@ -89,7 +89,7 @@ CREATE TABLE listings (
     facebook_url TEXT,
     youtube_url TEXT,
 
-    -- Premium fields
+    -- Pro fields
     is_featured BOOLEAN DEFAULT FALSE,
     is_verified BOOLEAN DEFAULT FALSE,
 
@@ -278,8 +278,7 @@ BEGIN
     RETURN CASE tier
         WHEN 'free' THEN 0
         WHEN 'basic' THEN 1
-        WHEN 'pro' THEN 5
-        WHEN 'premium' THEN 15
+        WHEN 'pro' THEN 15
         ELSE 0
     END;
 END;

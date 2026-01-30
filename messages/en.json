@@ -121,10 +121,6 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "Best for growing operators"
-      },
-      "premium": {
-        "name": "Premium",
         "description": "Maximum visibility & leads"
       }
     }

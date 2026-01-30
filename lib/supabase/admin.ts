@@ -52,7 +52,7 @@ export async function trackEvent(
  */
 export async function upsertSubscription(data: {
   operatorId: string;
-  tier: 'free' | 'basic' | 'pro' | 'premium';
+  tier: 'free' | 'basic' | 'pro';
   stripeCustomerId?: string;
   stripeSubscriptionId?: string;
   currentPeriodStart?: Date;

@@ -31,20 +31,14 @@ export const PRICE_IDS = {
     monthly: process.env.STRIPE_PRICE_PRO_MONTHLY || 'price_pro_monthly',
     annual: process.env.STRIPE_PRICE_PRO_ANNUAL || 'price_pro_annual',
   },
-  premium: {
-    monthly: process.env.STRIPE_PRICE_PREMIUM_MONTHLY || 'price_premium_monthly',
-    annual: process.env.STRIPE_PRICE_PREMIUM_ANNUAL || 'price_premium_annual',
-  },
 } as const;
 
 // Map Stripe price IDs to tier names
-export const PRICE_TO_TIER: Record<string, 'basic' | 'pro' | 'premium'> = {
+export const PRICE_TO_TIER: Record<string, 'basic' | 'pro'> = {
   [PRICE_IDS.basic.monthly]: 'basic',
   [PRICE_IDS.basic.annual]: 'basic',
   [PRICE_IDS.pro.monthly]: 'pro',
   [PRICE_IDS.pro.annual]: 'pro',
-  [PRICE_IDS.premium.monthly]: 'premium',
-  [PRICE_IDS.premium.annual]: 'premium',
 };
 
 /**
