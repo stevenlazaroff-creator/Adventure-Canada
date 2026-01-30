@@ -12,19 +12,19 @@ export const metadata: Metadata = {
 const regionData: Record<string, { image: string; tagline: string }> = {
   // Regional groupings
   'western-canada': {
-    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
+    image: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800',
     tagline: 'Rocky Mountains, Pacific coast, and endless wilderness',
   },
   'eastern-canada': {
-    image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800',
+    image: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800',
     tagline: 'Fall colours, Great Lakes, and French-Canadian heritage',
   },
   'atlantic-canada': {
-    image: 'https://images.unsplash.com/photo-1504681869696-d977211a5f4c?w=800',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
     tagline: 'Rugged coastlines, lighthouses, and maritime charm',
   },
   'northern-canada': {
-    image: 'https://images.unsplash.com/photo-1517783999520-f068d7431d60?w=800',
+    image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800',
     tagline: 'Northern lights, Arctic tundra, and pristine wilderness',
   },
   // Individual provinces
