@@ -26,14 +26,6 @@ const tierFeatures: Record<SubscriptionTier, string[]> = {
     'Analytics dashboard',
     'Inquiry form',
   ],
-  premium: [
-    'Everything in Pro, plus:',
-    '15 photos',
-    'Featured badge',
-    'Verified badge',
-    'Priority placement in search',
-    'Dedicated support',
-  ],
 }
 
 export default async function BillingPage() {

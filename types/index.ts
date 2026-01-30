@@ -1,6 +1,6 @@
 // Database types
 
-export type SubscriptionTier = 'free' | 'basic' | 'pro' | 'premium';
+export type SubscriptionTier = 'free' | 'basic' | 'pro';
 export type ListingStatus = 'draft' | 'pending' | 'active' | 'suspended';
 export type InquiryStatus = 'new' | 'read' | 'replied' | 'archived';
 export type EventType = 'view' | 'website_click' | 'phone_click' | 'inquiry';
@@ -161,18 +161,6 @@ export const TIER_LIMITS: Record<SubscriptionTier, {
     isVerified: false,
   },
   pro: {
-    images: 5,
-    descriptionLength: 2000,
-    hasPhone: true,
-    hasWebsite: true,
-    hasLogo: true,
-    hasSocialLinks: true,
-    hasAnalytics: true,
-    hasInquiryForm: true,
-    isFeatured: false,
-    isVerified: false,
-  },
-  premium: {
     images: 15,
     descriptionLength: 2000,
     hasPhone: true,
@@ -191,5 +179,4 @@ export const PRICING: Record<SubscriptionTier, { monthly: number; annual: number
   free: { monthly: 0, annual: 0 },
   basic: { monthly: 29, annual: 290 },
   pro: { monthly: 79, annual: 790 },
-  premium: { monthly: 149, annual: 1490 },
 };
