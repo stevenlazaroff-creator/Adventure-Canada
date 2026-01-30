@@ -40,7 +40,7 @@ export default async function DashboardLayout({
             <div className="flex items-center gap-8">
               <Link href={`/${locale}`}>
                 <Image
-                  src="/images/logo.png"
+                  src={locale === 'fr' ? '/images/logo-fr.jpg' : '/images/logo-en.png'}
                   alt="Adventure Canada"
                   width={150}
                   height={40}
