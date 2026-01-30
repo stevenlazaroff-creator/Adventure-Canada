@@ -1,18 +1,51 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { TIER_LIMITS } from '@/types'
 import { InquiryForm } from './InquiryForm'
 import { ImageGallery } from './ImageGallery'
+import { ListingCard } from '@/components/listings/ListingCard'
 
 interface AdventurePageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string; locale: string }>
+}
+
+export async function generateMetadata({ params }: AdventurePageProps): Promise<Metadata> {
+  const { slug } = await params
+  const supabase = await createClient()
+
+  const { data: listing } = await supabase
+    .from('listings')
+    .select('name, description_short, city, regions(name), listing_images(url, is_primary)')
+    .eq('slug', slug)
+    .single()
+
+  if (!listing) {
+    return {
+      title: 'Adventure Not Found | Adventure Canada',
+    }
+  }
+
+  const primaryImage = listing.listing_images?.find((img: any) => img.is_primary)?.url ||
+    listing.listing_images?.[0]?.url
+
+  return {
+    title: `${listing.name} | Adventure Canada`,
+    description: listing.description_short ||
+      `Experience ${listing.name} in ${listing.city}${listing.regions?.name ? `, ${listing.regions.name}` : ''}.`,
+    openGraph: {
+      title: listing.name,
+      description: listing.description_short || undefined,
+      images: primaryImage ? [{ url: primaryImage }] : undefined,
+    },
+  }
 }
 
 export default async function AdventurePage({ params }: AdventurePageProps) {
-  const { slug } = await params
+  const { slug, locale } = await params
   const supabase = await createClient()
 
   // Get listing with all relations
@@ -315,6 +348,79 @@ export default async function AdventurePage({ params }: AdventurePageProps) {
             )}
           </div>
         </div>
+
+        {/* Related Listings */}
+        <RelatedListings
+          currentId={listing.id}
+          regionId={listing.region_id}
+          activityIds={activities.map((a: any) => a.id)}
+          locale={locale}
+        />
+      </div>
+    </div>
+  )
+}
+
+async function RelatedListings({
+  currentId,
+  regionId,
+  activityIds,
+  locale,
+}: {
+  currentId: string
+  regionId: string | null
+  activityIds: number[]
+  locale: string
+}) {
+  const supabase = await createClient()
+
+  // Get listings in the same region or with similar activities
+  let query = supabase
+    .from('listings')
+    .select(`
+      id,
+      slug,
+      name,
+      city,
+      description_short,
+      price_range,
+      is_featured,
+      is_verified,
+      seasons,
+      regions(name),
+      listing_images(url, is_primary),
+      listing_activities(activity_id, activities(name))
+    `)
+    .eq('status', 'active')
+    .neq('id', currentId)
+    .limit(3)
+
+  if (regionId) {
+    query = query.eq('region_id', regionId)
+  }
+
+  const { data: listings } = await query
+
+  if (!listings || listings.length === 0) return null
+
+  return (
+    <div className="mt-16 pt-12 border-t">
+      <h2 className="text-2xl font-bold text-gray-900 mb-8">More Adventures You Might Like</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {listings.map((listing) => (
+          <ListingCard key={listing.id} listing={listing} locale={locale} />
+        ))}
+      </div>
+      <div className="text-center mt-8">
+        <Link
+          href="/adventures"
+          className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+        >
+          Browse All Adventures
+          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
       </div>
     </div>
   )
