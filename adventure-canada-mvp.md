@@ -14,7 +14,7 @@ A searchable directory of Canadian adventure tour operators with tiered subscrip
 adventure-canada.com/
 ├── Home
 │   ├── Hero with search bar
-│   ├── Featured listings (Premium tier)
+│   ├── Featured listings (Pro tier)
 │   ├── Popular categories
 │   └── Recent blog posts
 │
@@ -71,7 +71,7 @@ adventure-canada.com/
 ### Home Page
 - **Hero**: Full-width image, tagline "Discover Canada's Greatest Adventures", prominent search bar
 - **Search**: Activity type dropdown + Region dropdown + "Search" button
-- **Featured Section**: 3-6 Premium tier listings with images (rotating)
+- **Featured Section**: 3-6 Pro tier listings with images (rotating)
 - **Category Grid**: Visual cards for top 8 activity types
 - **Region Map**: Interactive or static map linking to regional pages
 - **Social Proof**: "500+ adventure operators listed" counter
@@ -81,12 +81,12 @@ adventure-canada.com/
 - **Header**: Category/region name, hero image, brief description (SEO content)
 - **Filters Sidebar**: Activity type, region, price range, rating
 - **Listings Grid**: Cards showing image, name, location, rating, tier badge
-- **Sorting**: Relevance (default = Premium first), Rating, Name A-Z
+- **Sorting**: Relevance (default = Pro first), Rating, Name A-Z
 - **Pagination**: 20 listings per page
 
 ### Listing Detail Page
 - **Gallery**: Main image + thumbnails (based on tier)
-- **Header**: Business name, verified badge (if Premium), rating
+- **Header**: Business name, verified badge (if Pro), rating
 - **Contact Box**: Phone (Basic+), website link (Basic+), inquiry form (Pro+)
 - **Description**: Short (Basic) or extended (Pro+)
 - **Details**: Location, activities offered, price range, seasons
@@ -163,12 +163,8 @@ Create 4 membership levels via Pricing Manager:
 
 **Pro Tier ($79/mo)**
 - Package price: $79/month or $790/year
-- Fields visible: + 2000-char description, 5 images, logo, social links
+- Fields visible: + 2000-char description, 15 images, logo, social links
 - Analytics: Enable via GeoDirectory Analytics addon
-
-**Premium Tier ($149/mo)**
-- Package price: $149/month or $1490/year
-- All fields + 15 images
 - Featured placement: Enable "featured" flag
 - Priority in search results
 
@@ -305,7 +301,7 @@ adventure-canada/
 -- ENUMS
 -- =============================================
 
-CREATE TYPE subscription_tier AS ENUM ('free', 'basic', 'pro', 'premium');
+CREATE TYPE subscription_tier AS ENUM ('free', 'basic', 'pro');
 CREATE TYPE listing_status AS ENUM ('draft', 'pending', 'active', 'suspended');
 CREATE TYPE inquiry_status AS ENUM ('new', 'read', 'replied', 'archived');
 
@@ -388,8 +384,8 @@ CREATE TABLE listings (
     instagram_url TEXT,
     facebook_url TEXT,
     youtube_url TEXT,
-    
-    -- Premium fields
+
+    -- Pro fields
     is_featured BOOLEAN DEFAULT FALSE,
     is_verified BOOLEAN DEFAULT FALSE,
     
@@ -546,8 +542,7 @@ BEGIN
     RETURN CASE tier
         WHEN 'free' THEN 0
         WHEN 'basic' THEN 1
-        WHEN 'pro' THEN 5
-        WHEN 'premium' THEN 15
+        WHEN 'pro' THEN 15
         ELSE 0
     END;
 END;
@@ -914,6 +909,7 @@ const tiers = [
       'Business description': false,
       'Image uploads': '0',
       'Logo display': false,
+      'Social links': false,
       'Analytics dashboard': false,
       'Priority placement': false,
       'Featured on homepage': false,
@@ -936,7 +932,8 @@ const tiers = [
       'Website link (SEO backlink)': true,
       'Business description': '500 chars',
       'Image uploads': '1',
-      'Logo display': false,
+      'Logo display': true,
+      'Social links': true,
       'Analytics dashboard': false,
       'Priority placement': false,
       'Featured on homepage': false,
@@ -950,29 +947,6 @@ const tiers = [
   {
     name: 'Pro',
     price: { monthly: 79, annual: 790 },
-    description: 'Best for growing operators',
-    features: {
-      'Business name & location': true,
-      'Category listing': true,
-      'Contact email': true,
-      'Phone number': true,
-      'Website link (SEO backlink)': true,
-      'Business description': '2000 chars',
-      'Image uploads': '5',
-      'Logo display': true,
-      'Analytics dashboard': true,
-      'Priority placement': false,
-      'Featured on homepage': false,
-      'Inquiry form': true,
-      'Verified badge': false,
-    },
-    cta: 'Start Pro',
-    href: '/register?plan=pro',
-    highlighted: true,
-  },
-  {
-    name: 'Premium',
-    price: { monthly: 149, annual: 1490 },
     description: 'Maximum visibility & leads',
     features: {
       'Business name & location': true,
@@ -983,21 +957,22 @@ const tiers = [
       'Business description': '2000 chars',
       'Image uploads': '15',
       'Logo display': true,
+      'Social links': true,
       'Analytics dashboard': true,
       'Priority placement': true,
       'Featured on homepage': true,
       'Inquiry form': true,
       'Verified badge': true,
     },
-    cta: 'Start Premium',
-    href: '/register?plan=premium',
-    highlighted: false,
+    cta: 'Start Pro',
+    href: '/register?plan=pro',
+    highlighted: true,
   },
 ];
 
 export function PricingTable() {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid md:grid-cols-3 gap-6">
       {tiers.map((tier) => (
         <div
           key={tier.name}
@@ -1082,8 +1057,6 @@ Create these products in Stripe Dashboard:
 | Basic Annual | price_basic_annual | - | $290 |
 | Pro | price_pro_monthly | $79 | - |
 | Pro Annual | price_pro_annual | - | $790 |
-| Premium | price_premium_monthly | $149 | - |
-| Premium Annual | price_premium_annual | - | $1,490 |
 
 ### Webhook Handler (app/api/webhooks/stripe/route.ts)
 
@@ -1099,13 +1072,11 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-const tierMap: Record<string, 'basic' | 'pro' | 'premium'> = {
+const tierMap: Record<string, 'basic' | 'pro'> = {
   price_basic_monthly: 'basic',
   price_basic_annual: 'basic',
   price_pro_monthly: 'pro',
   price_pro_annual: 'pro',
-  price_premium_monthly: 'premium',
-  price_premium_annual: 'premium',
 };
 
 export async function POST(req: Request) {

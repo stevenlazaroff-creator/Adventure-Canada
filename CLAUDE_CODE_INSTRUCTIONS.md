@@ -20,9 +20,8 @@ A searchable directory where visitors find adventure operators, and operators pa
 | Tier | Monthly | Annual | Key Features |
 |------|---------|--------|--------------|
 | Free | $0 | $0 | Name, location, category, email only |
-| Basic | $29 | $290 | + Phone, website link (dofollow SEO backlink), 500-char description, 1 image |
-| Pro | $79 | $790 | + 2000-char description, 5 images, logo, social links, analytics dashboard, inquiry form |
-| Premium | $149 | $1,490 | + 15 images, featured placement, homepage rotation, verified badge, priority in search |
+| Basic | $29 | $290 | + Phone, website link (dofollow SEO backlink), 500-char description, 1 image, logo, social links |
+| Pro | $79 | $790 | + 2000-char description, 15 images, analytics dashboard, inquiry form, featured placement, homepage rotation, verified badge, priority in search |
 
 ---
 
@@ -112,7 +111,7 @@ Create these tables with Row Level Security enabled:
 **subscriptions** - Stripe subscription sync
 - id (UUID, PK)
 - operator_id (UUID, FK to operators, UNIQUE)
-- tier (ENUM: free, basic, pro, premium)
+- tier (ENUM: free, basic, pro)
 - stripe_customer_id (TEXT)
 - stripe_subscription_id (TEXT)
 - current_period_start, current_period_end (TIMESTAMPTZ)
@@ -144,7 +143,7 @@ Create these tables with Row Level Security enabled:
 - description_long (TEXT, 2000 chars) — Pro+
 - logo_url (TEXT) — Pro+
 - instagram_url, facebook_url, youtube_url (TEXT) — Pro+
-- is_featured, is_verified (BOOLEAN) — Premium
+- is_featured, is_verified (BOOLEAN) — Pro
 - price_range (TEXT)
 - seasons (TEXT[])
 - fts (TSVECTOR, generated) — Full-text search
