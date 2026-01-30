@@ -7,7 +7,12 @@ export const metadata: Metadata = {
   description: 'Explore all adventure activities available across Canada - from kayaking and hiking to wildlife tours and northern lights experiences.',
 }
 
-export default async function ActivitiesPage() {
+interface ActivitiesPageProps {
+  params: Promise<{ locale: string }>
+}
+
+export default async function ActivitiesPage({ params }: ActivitiesPageProps) {
+  const { locale } = await params
   const supabase = await createClient()
 
   // Get all activities with listing counts
@@ -80,7 +85,7 @@ export default async function ActivitiesPage() {
             return (
               <Link
                 key={activity.id}
-                href={`/activities/${activity.slug}`}
+                href={`/${locale}/activities/${activity.slug}`}
                 className="group bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-primary-300 transition-all"
               >
                 <div className="text-4xl mb-4">{icon}</div>

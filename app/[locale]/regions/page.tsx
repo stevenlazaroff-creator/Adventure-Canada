@@ -64,7 +64,12 @@ const regionData: Record<string, { image: string; tagline: string }> = {
   },
 }
 
-export default async function RegionsPage() {
+interface RegionsPageProps {
+  params: Promise<{ locale: string }>
+}
+
+export default async function RegionsPage({ params }: RegionsPageProps) {
+  const { locale } = await params
   const supabase = await createClient()
 
   // Get all regions with listing counts
@@ -115,7 +120,7 @@ export default async function RegionsPage() {
             return (
               <Link
                 key={region.id}
-                href={`/regions/${region.slug}`}
+                href={`/${locale}/regions/${region.slug}`}
                 className="group relative rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:shadow-lg transition-all aspect-[4/3]"
               >
                 {/* Background Image */}

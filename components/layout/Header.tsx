@@ -16,8 +16,8 @@ export function Header() {
   const locale = pathname.split('/')[1] || 'en';
 
   const navigation = [
-    { name: t('activities'), href: `/${locale}/browse/activities` },
-    { name: t('regions'), href: `/${locale}/browse/regions` },
+    { name: t('activities'), href: `/${locale}/activities` },
+    { name: t('regions'), href: `/${locale}/regions` },
     { name: t('pricing'), href: `/${locale}/pricing` },
     { name: t('about'), href: `/${locale}/about` },
     { name: t('contact'), href: `/${locale}/contact` },

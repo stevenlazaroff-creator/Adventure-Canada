@@ -73,6 +73,8 @@ export function DashboardNav({ subscription }: DashboardNavProps) {
   const pathname = usePathname()
   const currentTier = subscription?.tier || 'free'
 
+  // Extract locale from pathname
+  const locale = pathname.split('/')[1] || 'en'
   // Remove locale prefix for comparison
   const pathnameWithoutLocale = pathname.replace(/^\/(en|fr)/, '')
 
@@ -87,7 +89,7 @@ export function DashboardNav({ subscription }: DashboardNavProps) {
         return (
           <Link
             key={item.href}
-            href={isLocked ? '/dashboard/billing' : item.href}
+            href={isLocked ? `/${locale}/dashboard/billing` : `/${locale}${item.href}`}
             className={cn(
               'flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors',
               isActive

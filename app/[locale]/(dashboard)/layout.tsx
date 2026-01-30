@@ -4,11 +4,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { DashboardNav } from './DashboardNav'
 
+interface DashboardLayoutProps {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}
+
 export default async function DashboardLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+  params,
+}: DashboardLayoutProps) {
+  const { locale } = await params
   const supabase = await createClient()
 
   const {
@@ -16,7 +21,7 @@ export default async function DashboardLayout({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login')
+    redirect(`/${locale}/login`)
   }
 
   // Get operator profile
@@ -33,7 +38,7 @@ export default async function DashboardLayout({
         <div className="container-wide">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-8">
-              <Link href="/">
+              <Link href={`/${locale}`}>
                 <Image
                   src="/images/logo.png"
                   alt="Adventure Canada"

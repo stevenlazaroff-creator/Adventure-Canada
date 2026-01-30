@@ -28,7 +28,7 @@ interface ListingCardProps {
   locale?: string;
 }
 
-export function ListingCard({ listing, locale }: ListingCardProps) {
+export function ListingCard({ listing, locale = 'en' }: ListingCardProps) {
   // Get primary image from either primary_image or listing_images
   const primaryImage = listing.primary_image ||
     listing.listing_images?.find((img) => img.is_primary)?.url ||
@@ -47,7 +47,7 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
     [];
 
   return (
-    <Link href={`/adventures/${listing.slug}`}>
+    <Link href={`/${locale}/adventures/${listing.slug}`}>
       <div className="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow h-full">
         {/* Image */}
         <div className="aspect-[4/3] relative bg-gray-100">

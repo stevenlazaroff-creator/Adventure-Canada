@@ -194,7 +194,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="container mx-auto px-4 pb-12">
             <Link
-              href="/regions"
+              href={`/${locale}/regions`}
               className="inline-flex items-center text-white/80 hover:text-white mb-4 transition-colors"
             >
               <ChevronLeft className="w-4 h-4 mr-1" />
@@ -230,7 +230,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
               {activities.map((activity) => (
                 <Link
                   key={activity.id}
-                  href={`/activities/${activity.slug}`}
+                  href={`/${locale}/activities/${activity.slug}`}
                   className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:border-primary-300 hover:bg-primary-50 transition-colors"
                 >
                   {activity.name}
@@ -245,7 +245,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
           <h2 className="text-2xl font-bold text-gray-900">
             {listings?.length || 0} Adventures in {region.name}
           </h2>
-          <Link href="/adventures" className="text-primary-600 hover:text-primary-700 font-medium">
+          <Link href={`/${locale}/adventures`} className="text-primary-600 hover:text-primary-700 font-medium">
             Browse All Adventures
           </Link>
         </div>
@@ -265,7 +265,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
               regions!
             </p>
             <Link
-              href="/adventures"
+              href={`/${locale}/adventures`}
               className="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               Browse All Adventures
@@ -276,14 +276,14 @@ export default async function RegionPage({ params }: RegionPageProps) {
         {/* Other Regions */}
         <div className="mt-16">
           <h3 className="text-xl font-bold text-gray-900 mb-6">Explore Other Regions</h3>
-          <OtherRegions currentSlug={region.slug} />
+          <OtherRegions currentSlug={region.slug} locale={locale} />
         </div>
       </div>
     </div>
   )
 }
 
-async function OtherRegions({ currentSlug }: { currentSlug: string }) {
+async function OtherRegions({ currentSlug, locale }: { currentSlug: string; locale: string }) {
   const supabase = await createClient()
 
   const { data: regions } = await supabase
@@ -304,7 +304,7 @@ async function OtherRegions({ currentSlug }: { currentSlug: string }) {
         return (
           <Link
             key={region.id}
-            href={`/regions/${region.slug}`}
+            href={`/${locale}/regions/${region.slug}`}
             className="group relative rounded-lg overflow-hidden aspect-square"
           >
             <img
