@@ -2,6 +2,11 @@
   command = "npm run build"
   publish = ".next"
 
+# Skip deploy previews to save build minutes
+[context.deploy-preview]
+  command = "echo 'Deploy previews disabled' && exit 0"
+  ignore = true
+
 [build.environment]
   NODE_VERSION = "20"
 
