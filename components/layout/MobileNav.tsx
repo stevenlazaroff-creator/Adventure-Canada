@@ -79,7 +79,7 @@ export function MobileNav({ open, onClose, navigation, locale }: MobileNavProps)
               {t('login')}
             </Link>
             <Link
-              href={`/${locale}/register`}
+              href={`/${locale}/pricing`}
               onClick={onClose}
               className="btn btn-primary btn-md w-full"
             >
