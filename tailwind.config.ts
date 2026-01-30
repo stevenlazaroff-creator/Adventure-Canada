@@ -9,15 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Background beige from logos
+        // Background beige from logos - exact match
         beige: {
           50: '#FDFCFA',
-          100: '#F9F6F1',
-          200: '#F5F0E8',  // Main logo background color
-          300: '#EDE5D8',
-          400: '#E0D4C2',
+          100: '#FAF7F2',
+          200: '#F5F0E8',  // Exact logo background color
+          300: '#EDE4D3',
+          400: '#E5D9C3',
           500: '#D4C4AB',
         },
+        // Pantone 293 blue for header
+        'pantone-293': '#0033A0',
         // Brand colors from logos
         brand: {
           red: {
