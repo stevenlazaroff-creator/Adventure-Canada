@@ -10,6 +10,24 @@ export const metadata: Metadata = {
 
 // Region images and descriptions
 const regionData: Record<string, { image: string; tagline: string }> = {
+  // Regional groupings
+  'western-canada': {
+    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
+    tagline: 'Rocky Mountains, Pacific coast, and endless wilderness',
+  },
+  'eastern-canada': {
+    image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800',
+    tagline: 'Fall colours, Great Lakes, and French-Canadian heritage',
+  },
+  'atlantic-canada': {
+    image: 'https://images.unsplash.com/photo-1504681869696-d977211a5f4c?w=800',
+    tagline: 'Rugged coastlines, lighthouses, and maritime charm',
+  },
+  'northern-canada': {
+    image: 'https://images.unsplash.com/photo-1517783999520-f068d7431d60?w=800',
+    tagline: 'Northern lights, Arctic tundra, and pristine wilderness',
+  },
+  // Individual provinces
   'british-columbia': {
     image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
     tagline: 'Mountains, rainforests, and Pacific coastline',
