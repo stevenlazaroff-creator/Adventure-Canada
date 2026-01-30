@@ -32,10 +32,15 @@ export async function generateMetadata({ params }: AdventurePageProps): Promise<
   const primaryImage = listing.listing_images?.find((img: any) => img.is_primary)?.url ||
     listing.listing_images?.[0]?.url
 
+  // Handle regions as either object or array
+  const regionName = Array.isArray(listing.regions)
+    ? listing.regions[0]?.name
+    : (listing.regions as { name: string } | null)?.name
+
   return {
     title: `${listing.name} | Adventure Canada`,
     description: listing.description_short ||
-      `Experience ${listing.name} in ${listing.city}${listing.regions?.name ? `, ${listing.regions.name}` : ''}.`,
+      `Experience ${listing.name} in ${listing.city}${regionName ? `, ${regionName}` : ''}.`,
     openGraph: {
       title: listing.name,
       description: listing.description_short || undefined,
