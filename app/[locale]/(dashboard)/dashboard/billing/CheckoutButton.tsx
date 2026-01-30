@@ -51,7 +51,7 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
     }
   }
 
-  const tierOrder: SubscriptionTier[] = ['free', 'basic', 'pro', 'premium']
+  const tierOrder: SubscriptionTier[] = ['free', 'basic', 'pro']
   const isUpgrade = tierOrder.indexOf(tier) > tierOrder.indexOf(currentTier)
 
   return (
