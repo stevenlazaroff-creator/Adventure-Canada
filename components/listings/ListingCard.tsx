@@ -19,7 +19,11 @@ interface ListingCardProps {
     primary_image?: string | null;
     listing_images?: { url: string; is_primary: boolean }[];
     activities?: { name: string }[];
-    listing_activities?: { activity_id: number; activities: { name: string } }[];
+    // listing_activities.activities can be object or array depending on Supabase query
+    listing_activities?: {
+      activity_id: number;
+      activities: { name: string } | { name: string }[];
+    }[];
   };
   locale?: string;
 }
@@ -35,8 +39,11 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
     (Array.isArray(listing.regions) ? listing.regions[0]?.name : listing.regions?.name);
 
   // Get activities from either activities or listing_activities
+  // Handle both object and array cases for la.activities
   const activities = listing.activities ||
-    listing.listing_activities?.map((la) => la.activities).filter(Boolean) ||
+    listing.listing_activities?.map((la) =>
+      Array.isArray(la.activities) ? la.activities[0] : la.activities
+    ).filter(Boolean) ||
     [];
 
   return (
