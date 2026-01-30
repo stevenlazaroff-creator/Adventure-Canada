@@ -9,22 +9,27 @@ export const metadata: Metadata = {
 }
 
 // Region images and descriptions
+// Photo credits:
+// - Western Canada: Nunzio Guerrera (Pexels)
+// - Eastern Canada: Felix-Antoine Coutu (Pexels)
+// - Atlantic Canada: Daniel Battersby (Pexels)
+// - Northern Canada: Rigo Olvera (Pexels)
 const regionData: Record<string, { image: string; tagline: string }> = {
   // Regional groupings
   'western-canada': {
-    image: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800',
+    image: '/images/regions/western-canada.jpg',
     tagline: 'Rocky Mountains, Pacific coast, and endless wilderness',
   },
   'eastern-canada': {
-    image: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800',
+    image: '/images/regions/eastern-canada.jpg',
     tagline: 'Fall colours, Great Lakes, and French-Canadian heritage',
   },
   'atlantic-canada': {
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+    image: '/images/regions/atlantic-canada.jpg',
     tagline: 'Rugged coastlines, lighthouses, and maritime charm',
   },
   'northern-canada': {
-    image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800',
+    image: '/images/regions/northern-canada.jpg',
     tagline: 'Northern lights, Arctic tundra, and pristine wilderness',
   },
   // Individual provinces

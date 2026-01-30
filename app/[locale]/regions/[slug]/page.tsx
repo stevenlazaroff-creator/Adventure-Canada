@@ -13,31 +13,36 @@ interface RegionPageProps {
 }
 
 // Region data with images and descriptions
+// Photo credits:
+// - Western Canada: Nunzio Guerrera (Pexels)
+// - Eastern Canada: Felix-Antoine Coutu (Pexels)
+// - Atlantic Canada: Daniel Battersby (Pexels)
+// - Northern Canada: Rigo Olvera (Pexels)
 const regionData: Record<
   string,
   { image: string; description: string; highlights: string[] }
 > = {
   // Regional groupings
   'western-canada': {
-    image: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1200',
+    image: '/images/regions/western-canada.jpg',
     description:
       'Western Canada encompasses the majestic Rocky Mountains, pristine Pacific coastlines, and endless prairie skies. From British Columbia\'s ancient rainforests to Alberta\'s world-famous national parks and the vast northern reaches of Saskatchewan and Manitoba, this region offers unparalleled wilderness adventures.',
     highlights: ['Rocky Mountains', 'Pacific Coast', 'National Parks', 'Prairie Skies'],
   },
   'eastern-canada': {
-    image: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200',
+    image: '/images/regions/eastern-canada.jpg',
     description:
       'Eastern Canada blends vibrant cities with breathtaking natural beauty. Experience Ontario\'s Great Lakes and cottage country, Quebec\'s stunning fall colours and French-Canadian culture, from the thundering Niagara Falls to the historic streets of Old Quebec City.',
     highlights: ['Niagara Falls', 'Algonquin Park', 'Quebec City', 'Fall Colours'],
   },
   'atlantic-canada': {
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+    image: '/images/regions/atlantic-canada.jpg',
     description:
       'Atlantic Canada offers dramatic coastlines, the world\'s highest tides at the Bay of Fundy, and warm maritime hospitality. Explore Nova Scotia\'s iconic lighthouses, Prince Edward Island\'s red sand beaches, New Brunswick\'s covered bridges, and Newfoundland\'s ancient Viking history.',
     highlights: ['Bay of Fundy', 'Cabot Trail', 'Lighthouses', 'Icebergs'],
   },
   'northern-canada': {
-    image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1200',
+    image: '/images/regions/northern-canada.jpg',
     description:
       'Canada\'s Northern territories represent the last true frontier on Earth. Experience spectacular northern lights displays in the Yukon, pristine Arctic wilderness in the Northwest Territories, and authentic Inuit culture in Nunavut. This is adventure at its most raw and magnificent.',
     highlights: ['Northern Lights', 'Arctic Wildlife', 'Inuit Culture', 'Midnight Sun'],
