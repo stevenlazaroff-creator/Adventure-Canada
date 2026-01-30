@@ -11,10 +11,12 @@ interface CheckoutButtonProps {
 
 export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly')
 
   const handleCheckout = async () => {
     setIsLoading(true)
+    setError(null)
 
     try {
       const response = await fetch('/api/billing/checkout', {
@@ -30,14 +32,21 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
 
       const data = await response.json()
 
+      if (!response.ok) {
+        setError(data.error || 'Failed to start checkout')
+        setIsLoading(false)
+        return
+      }
+
       if (data.url) {
         window.location.href = data.url
       } else {
-        console.error('No checkout URL returned')
+        setError('No checkout URL returned')
         setIsLoading(false)
       }
     } catch (error) {
       console.error('Checkout error:', error)
+      setError('Something went wrong. Please try again.')
       setIsLoading(false)
     }
   }
@@ -71,6 +80,10 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
           Annual
         </button>
       </div>
+
+      {error && (
+        <p className="text-sm text-red-600 text-center">{error}</p>
+      )}
 
       <Button
         variant="primary"

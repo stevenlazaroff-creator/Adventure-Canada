@@ -16,6 +16,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'md',
       isLoading,
       disabled,
+      type = 'button',
       children,
       ...props
     },
@@ -38,6 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
+        type={type}
         className={cn(
           'inline-flex items-center justify-center rounded-lg font-medium transition-colors',
           'focus:outline-none focus:ring-2 focus:ring-offset-2',
