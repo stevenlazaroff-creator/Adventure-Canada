@@ -267,14 +267,12 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 name="region_id"
                 value={formData.region_id}
                 onChange={handleChange}
-              >
-                <option value="">Select a region</option>
-                {regions.map((region) => (
-                  <option key={region.id} value={region.id}>
-                    {region.name}
-                  </option>
-                ))}
-              </Select>
+                placeholder="Select a region"
+                options={regions.map((region) => ({
+                  value: region.id.toString(),
+                  label: region.name,
+                }))}
+              />
 
               <Input
                 label="Postal Code"
@@ -367,14 +365,12 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
               name="price_range"
               value={formData.price_range}
               onChange={handleChange}
-            >
-              <option value="">Select price range</option>
-              {priceRanges.map((range) => (
-                <option key={range.value} value={range.value}>
-                  {range.label}
-                </option>
-              ))}
-            </Select>
+              placeholder="Select price range"
+              options={priceRanges.map((range) => ({
+                value: range.value,
+                label: range.label,
+              }))}
+            />
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
