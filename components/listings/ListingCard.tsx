@@ -9,7 +9,8 @@ interface ListingCardProps {
     name: string;
     city: string | null;
     region?: { name: string } | null;
-    regions?: { name: string } | null;
+    // regions can be a single object or array depending on how Supabase returns it
+    regions?: { name: string } | { name: string }[] | null;
     description_short: string | null;
     price_range: string | null;
     is_featured: boolean;
@@ -29,8 +30,9 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
     listing.listing_images?.find((img) => img.is_primary)?.url ||
     listing.listing_images?.[0]?.url;
 
-  // Get region name from either region or regions
-  const regionName = listing.region?.name || listing.regions?.name;
+  // Get region name from either region or regions (handling both object and array)
+  const regionName = listing.region?.name ||
+    (Array.isArray(listing.regions) ? listing.regions[0]?.name : listing.regions?.name);
 
   // Get activities from either activities or listing_activities
   const activities = listing.activities ||
