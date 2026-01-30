@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -60,6 +61,8 @@ const topics = [
 ]
 
 export default function ContactPage() {
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -164,7 +167,7 @@ export default function ContactPage() {
                 <p className="text-sm text-gray-600 mb-4">
                   Check out our pricing page FAQ section for answers to common questions.
                 </p>
-                <Link href="/pricing#faq">
+                <Link href={`/${locale}/pricing#faq`}>
                   <Button variant="outline" size="sm">
                     View FAQs
                   </Button>
@@ -315,7 +318,7 @@ export default function ContactPage() {
                 If you&apos;re interested in listing your adventure tours on our platform, check out
                 our pricing page to learn more about our plans and get started.
               </p>
-              <Link href="/pricing">
+              <Link href={`/${locale}/pricing`}>
                 <Button variant="outline">View Pricing Plans</Button>
               </Link>
             </div>

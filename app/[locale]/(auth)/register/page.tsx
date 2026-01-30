@@ -2,12 +2,15 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Card, CardContent, CardFooter } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { createClient } from '@/lib/supabase/client'
 
 export default function RegisterPage() {
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
   const [formData, setFormData] = useState({
     businessName: '',
     email: '',
@@ -106,7 +109,7 @@ export default function RegisterPage() {
               Click the link to activate your account.
             </p>
             <Link
-              href="/login"
+              href={`/${locale}/login`}
               className="text-primary-600 hover:text-primary-700 font-medium"
             >
               Back to login
@@ -191,11 +194,11 @@ export default function RegisterPage() {
 
             <p className="text-xs text-gray-500">
               By registering, you agree to our{' '}
-              <Link href="/terms" className="text-primary-600 hover:underline">
+              <Link href={`/${locale}/terms`} className="text-primary-600 hover:underline">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-primary-600 hover:underline">
+              <Link href={`/${locale}/privacy`} className="text-primary-600 hover:underline">
                 Privacy Policy
               </Link>
               .
@@ -216,7 +219,7 @@ export default function RegisterPage() {
             <p className="text-center text-sm text-gray-600">
               Already have an account?{' '}
               <Link
-                href="/login"
+                href={`/${locale}/login`}
                 className="text-primary-600 hover:text-primary-700 font-medium"
               >
                 Sign in

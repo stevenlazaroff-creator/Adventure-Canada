@@ -1,17 +1,22 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function AuthLayout({
-  children,
-}: {
+interface AuthLayoutProps {
   children: React.ReactNode
-}) {
+  params: Promise<{ locale: string }>
+}
+
+export default async function AuthLayout({
+  children,
+  params,
+}: AuthLayoutProps) {
+  const { locale } = await params
   return (
     <div className="min-h-screen bg-beige-100 flex flex-col">
       {/* Simple header with just logo */}
       <header className="py-6">
         <div className="container-wide">
-          <Link href="/" className="inline-block">
+          <Link href={`/${locale}`} className="inline-block">
             <Image
               src="/images/logo.png"
               alt="Adventure Canada"

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -31,6 +31,8 @@ const seasons = ['Spring', 'Summer', 'Fall', 'Winter']
 export function SearchFilters({ activities, regions, currentFilters }: SearchFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
 
   const [searchQuery, setSearchQuery] = useState(currentFilters.q || '')
   const [showAllActivities, setShowAllActivities] = useState(false)
@@ -44,7 +46,7 @@ export function SearchFilters({ activities, regions, currentFilters }: SearchFil
       params.delete(key)
     }
 
-    router.push(`/adventures?${params.toString()}`)
+    router.push(`/${locale}/adventures?${params.toString()}`)
   }
 
   const handleSearch = (e: React.FormEvent) => {
@@ -54,7 +56,7 @@ export function SearchFilters({ activities, regions, currentFilters }: SearchFil
 
   const clearAllFilters = () => {
     setSearchQuery('')
-    router.push('/adventures')
+    router.push(`/${locale}/adventures`)
   }
 
   const hasActiveFilters = currentFilters.q || currentFilters.activity ||

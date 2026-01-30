@@ -71,7 +71,12 @@ const team = [
   },
 ]
 
-export default function AboutPage() {
+interface AboutPageProps {
+  params: Promise<{ locale: string }>
+}
+
+export default async function AboutPage({ params }: AboutPageProps) {
+  const { locale } = await params
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -88,12 +93,12 @@ export default function AboutPage() {
               growing their businesses.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/adventures">
+              <Link href={`/${locale}/adventures`}>
                 <Button variant="secondary" size="lg">
                   Explore Adventures
                 </Button>
               </Link>
-              <Link href="/pricing">
+              <Link href={`/${locale}/pricing`}>
                 <Button
                   variant="outline"
                   size="lg"
@@ -231,12 +236,12 @@ export default function AboutPage() {
             experience through our platform.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/adventures">
+            <Link href={`/${locale}/adventures`}>
               <Button variant="secondary" size="lg">
                 Browse Adventures
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href={`/${locale}/contact`}>
               <Button
                 variant="outline"
                 size="lg"

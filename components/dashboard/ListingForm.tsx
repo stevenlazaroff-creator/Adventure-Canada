@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -19,6 +19,8 @@ interface ListingFormProps {
 
 export function ListingForm({ listing, tier, activities, regions }: ListingFormProps) {
   const router = useRouter()
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
   const limits = TIER_LIMITS[tier]
   const isEditing = !!listing
 
@@ -164,7 +166,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
         }
       }
 
-      router.push('/dashboard/listings')
+      router.push(`/${locale}/dashboard/listings`)
       router.refresh()
     } catch (err: any) {
       console.error('Error saving listing:', err)

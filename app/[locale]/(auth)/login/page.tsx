@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Card, CardContent, CardFooter } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -10,6 +10,8 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
   const router = useRouter()
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -39,7 +41,7 @@ export default function LoginPage() {
       return
     }
 
-    router.push('/dashboard')
+    router.push(`/${locale}/dashboard`)
     router.refresh()
   }
 
@@ -81,7 +83,7 @@ export default function LoginPage() {
 
             <div className="flex justify-end">
               <Link
-                href="/forgot-password"
+                href={`/${locale}/forgot-password`}
                 className="text-sm text-primary-600 hover:text-primary-700 font-medium"
               >
                 Forgot password?
@@ -103,7 +105,7 @@ export default function LoginPage() {
             <p className="text-center text-sm text-gray-600">
               Don&apos;t have an account?{' '}
               <Link
-                href="/register"
+                href={`/${locale}/register`}
                 className="text-primary-600 hover:text-primary-700 font-medium"
               >
                 Register your business

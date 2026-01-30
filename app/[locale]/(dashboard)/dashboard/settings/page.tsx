@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -9,6 +9,8 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function SettingsPage() {
   const router = useRouter()
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
   const [formData, setFormData] = useState({
     business_name: '',
     email: '',
@@ -34,7 +36,7 @@ export default function SettingsPage() {
       } = await supabase.auth.getUser()
 
       if (!user) {
-        router.push('/login')
+        router.push(`/${locale}/login`)
         return
       }
 

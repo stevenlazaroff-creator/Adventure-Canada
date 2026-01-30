@@ -61,12 +61,12 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
   const handleProvinceClick = (provinceCode: string) => {
     const region = regionMapping[provinceCode];
     if (region) {
-      router.push(`/${locale}/browse/regions/${regionSlugs[region]}`);
+      router.push(`/${locale}/regions/${regionSlugs[region]}`);
     }
   };
 
   const handleRegionClick = (slug: string) => {
-    router.push(`/${locale}/browse/regions/${slug}`);
+    router.push(`/${locale}/regions/${slug}`);
   };
 
   const getProvinceFill = (provinceCode: string) => {
