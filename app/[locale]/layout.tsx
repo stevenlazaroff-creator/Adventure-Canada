@@ -60,7 +60,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className="h-full">
-      <body className={`${inter.className} h-full bg-gray-50`}>
+      <body className={`${inter.className} h-full`} style={{ backgroundColor: '#F5F0E8' }}>
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-full flex-col">
             <Header />

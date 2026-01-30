@@ -71,13 +71,7 @@ export default async function HomePage({
           </div>
 
           {/* Canada Map */}
-          <div className="mb-8">
-            <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-800 mb-6">
-              {t('exploreByRegion')}
-            </h2>
-            <p className="text-center text-gray-500 mb-8">
-              {t('selectRegion')}
-            </p>
+          <div>
             <CanadaMap
               locale={locale}
               labels={{
