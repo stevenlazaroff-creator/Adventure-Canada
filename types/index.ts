@@ -54,6 +54,7 @@ export interface Listing {
   contact_email: string;
   address: string | null;
   city: string | null;
+  province: string | null;
   region_id: number | null;
   postal_code: string | null;
   latitude: number | null;

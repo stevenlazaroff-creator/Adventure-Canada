@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { Select } from '@/components/ui/Select'
 import { createClient } from '@/lib/supabase/client'
 import { TIER_LIMITS, type SubscriptionTier, type Listing, type Activity, type Region } from '@/types'
-import { slugify } from '@/lib/utils'
+import { slugify, PROVINCES_TERRITORIES, getRegionFromProvince, formatPostalCode, validatePostalCode, validateShortDescription } from '@/lib/utils'
 
 interface ListingFormProps {
   listing?: Listing & { listing_activities?: { activity_id: string }[] }
@@ -31,6 +31,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
     website_url: listing?.website_url || '',
     address: listing?.address || '',
     city: listing?.city || '',
+    province: listing?.province || '',
     region_id: listing?.region_id?.toString() || '',
     postal_code: listing?.postal_code || '',
     description_short: listing?.description_short || '',
@@ -42,6 +43,11 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
     youtube_url: listing?.youtube_url || '',
   })
 
+  const [fieldErrors, setFieldErrors] = useState<{
+    postal_code?: string
+    description_short?: string
+  }>({})
+
   const [selectedActivities, setSelectedActivities] = useState<string[]>(
     listing?.listing_activities?.map((la) => la.activity_id) || []
   )
@@ -51,6 +57,38 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
+
+    // Handle province change - auto-set region
+    if (name === 'province') {
+      const regionName = getRegionFromProvince(value)
+      const region = regions.find(r => r.name === regionName)
+      setFormData((prev) => ({
+        ...prev,
+        province: value,
+        region_id: region?.id.toString() || '',
+      }))
+      return
+    }
+
+    // Handle postal code - auto-capitalize and format
+    if (name === 'postal_code') {
+      const formatted = formatPostalCode(value)
+      setFormData((prev) => ({ ...prev, postal_code: formatted }))
+      // Clear error when user starts typing
+      if (fieldErrors.postal_code) {
+        setFieldErrors((prev) => ({ ...prev, postal_code: undefined }))
+      }
+      return
+    }
+
+    // Handle short description - validate for contact info
+    if (name === 'description_short') {
+      setFormData((prev) => ({ ...prev, description_short: value }))
+      const descError = validateShortDescription(value)
+      setFieldErrors((prev) => ({ ...prev, description_short: descError || undefined }))
+      return
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
@@ -82,6 +120,33 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
       return
     }
 
+    // Validate postal code
+    const postalCodeError = validatePostalCode(formData.postal_code)
+    if (postalCodeError) {
+      setFieldErrors((prev) => ({ ...prev, postal_code: postalCodeError }))
+      setError(postalCodeError)
+      setIsLoading(false)
+      return
+    }
+
+    // Validate short description for contact info
+    if (limits.descriptionLength > 0 && formData.description_short) {
+      const descError = validateShortDescription(formData.description_short)
+      if (descError) {
+        setFieldErrors((prev) => ({ ...prev, description_short: descError }))
+        setError(descError)
+        setIsLoading(false)
+        return
+      }
+    }
+
+    // Validate province is selected
+    if (!formData.province) {
+      setError('Please select a Province/Territory')
+      setIsLoading(false)
+      return
+    }
+
     const supabase = createClient()
 
     const {
@@ -106,6 +171,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
       website_url: limits.hasWebsite ? formData.website_url || null : null,
       address: formData.address || null,
       city: formData.city || null,
+      province: formData.province || null,
       region_id: formData.region_id ? parseInt(formData.region_id) : null,
       postal_code: formData.postal_code || null,
       description_short: limits.descriptionLength > 0
@@ -265,24 +331,33 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
               />
 
               <Select
-                label="Region"
-                name="region_id"
-                value={formData.region_id}
+                label="Province/Territory *"
+                name="province"
+                value={formData.province}
                 onChange={handleChange}
-                placeholder="Select a region"
-                options={regions.map((region) => ({
-                  value: region.id.toString(),
-                  label: region.name,
+                placeholder="Select a province/territory"
+                options={PROVINCES_TERRITORIES.map((prov) => ({
+                  value: prov.code,
+                  label: prov.name,
                 }))}
               />
 
-              <Input
-                label="Postal Code"
-                name="postal_code"
-                value={formData.postal_code}
-                onChange={handleChange}
-                placeholder="T1L 1A1"
-              />
+              <div>
+                <Input
+                  label="Postal Code *"
+                  name="postal_code"
+                  value={formData.postal_code}
+                  onChange={handleChange}
+                  placeholder="A1A 1A1"
+                  error={fieldErrors.postal_code}
+                  required
+                />
+                {formData.province && formData.region_id && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    Region: {regions.find(r => r.id.toString() === formData.region_id)?.name}
+                  </p>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -305,8 +380,13 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 rows={3}
                 maxLength={limits.descriptionLength || undefined}
                 disabled={limits.descriptionLength === 0}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed ${
+                  fieldErrors.description_short ? 'border-red-500' : 'border-gray-300'
+                }`}
               />
+              {fieldErrors.description_short && (
+                <p className="mt-1 text-sm text-red-600">{fieldErrors.description_short}</p>
+              )}
             </div>
 
             {limits.descriptionLength >= 2000 && (
