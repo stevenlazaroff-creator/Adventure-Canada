@@ -1,8 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mountain, Waves, TreePine, Fish, Snowflake } from 'lucide-react';
-import { CategoryCard } from '@/components/marketing/CategoryCard';
 import { CanadaMap } from '@/components/marketing/CanadaMap';
 
 export async function generateMetadata({
@@ -19,15 +17,6 @@ export async function generateMetadata({
   };
 }
 
-const activities = [
-  { slug: 'rafting', icon: Waves, color: 'bg-blue-500' },
-  { slug: 'hiking', icon: Mountain, color: 'bg-green-600' },
-  { slug: 'skiing', icon: Snowflake, color: 'bg-sky-400' },
-  { slug: 'kayaking', icon: Waves, color: 'bg-cyan-500' },
-  { slug: 'fishing', icon: Fish, color: 'bg-teal-500' },
-  { slug: 'camping', icon: TreePine, color: 'bg-emerald-600' },
-];
-
 export default async function HomePage({
   params,
 }: {
@@ -39,9 +28,7 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   const t = await getTranslations('home');
-  const tActivities = await getTranslations('activities');
   const tRegions = await getTranslations('regions');
-  const tNav = await getTranslations('nav');
 
   return (
     <div>
@@ -87,34 +74,6 @@ export default async function HomePage({
           <p className="text-center text-gray-500 mt-8">
             {t('operatorCount', { count: '500+' })}
           </p>
-        </div>
-      </section>
-
-      {/* Popular Activities */}
-      <section className="container-wide py-16 md:py-24">
-        <div className="text-center mb-12">
-          <h2 className="section-title">{t('popularActivities')}</h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {activities.map((activity) => (
-            <CategoryCard
-              key={activity.slug}
-              href={`/${locale}/browse/activities/${activity.slug}`}
-              icon={activity.icon}
-              label={tActivities(activity.slug.replace('-', '') as any)}
-              color={activity.color}
-            />
-          ))}
-        </div>
-
-        <div className="text-center mt-8">
-          <Link
-            href={`/${locale}/browse/activities`}
-            className="btn btn-outline btn-md"
-          >
-            {tNav('activities')} →
-          </Link>
         </div>
       </section>
 
