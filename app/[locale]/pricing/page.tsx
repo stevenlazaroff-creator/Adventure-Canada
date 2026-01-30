@@ -28,7 +28,7 @@ const plans = [
       { name: 'Analytics dashboard', included: false },
       { name: 'Inquiry form', included: false },
       { name: 'Featured placement', included: false },
-      { name: 'Priority support', included: false },
+      { name: 'Dedicated support', included: false },
     ],
     cta: 'Get Started Free',
     ctaLink: '/register',
@@ -36,23 +36,23 @@ const plans = [
   },
   {
     name: 'Basic',
-    price: '$19',
+    price: '$29',
     period: '/month',
-    yearlyPrice: '$190',
+    yearlyPrice: '$290',
     description: 'For operators ready to grow',
     features: [
-      { name: '3 listings', included: true },
+      { name: '5 listings', included: true },
       { name: 'Enhanced listing details', included: true },
       { name: 'Email contact display', included: true },
       { name: 'Activity & region tags', included: true },
       { name: 'Phone number display', included: true },
       { name: 'Website link', included: true },
-      { name: 'Social media links', included: false },
-      { name: 'Up to 5 images per listing', included: true },
-      { name: 'Analytics dashboard', included: false },
-      { name: 'Inquiry form', included: false },
+      { name: 'Social media links', included: true },
+      { name: 'Up to 10 images per listing', included: true },
+      { name: 'Analytics dashboard', included: true },
+      { name: 'Inquiry form', included: true },
       { name: 'Featured placement', included: false },
-      { name: 'Priority support', included: false },
+      { name: 'Dedicated support', included: false },
     ],
     cta: 'Start Basic',
     ctaLink: '/register?plan=basic',
@@ -60,34 +60,9 @@ const plans = [
   },
   {
     name: 'Pro',
-    price: '$49',
+    price: '$79',
     period: '/month',
-    yearlyPrice: '$490',
-    description: 'Most popular for growing businesses',
-    features: [
-      { name: '10 listings', included: true },
-      { name: 'Full listing details', included: true },
-      { name: 'Email contact display', included: true },
-      { name: 'Activity & region tags', included: true },
-      { name: 'Phone number display', included: true },
-      { name: 'Website link', included: true },
-      { name: 'Social media links', included: true },
-      { name: 'Up to 15 images per listing', included: true },
-      { name: 'Analytics dashboard', included: true },
-      { name: 'Inquiry form', included: true },
-      { name: 'Featured placement', included: false },
-      { name: 'Priority support', included: true },
-    ],
-    cta: 'Go Pro',
-    ctaLink: '/register?plan=pro',
-    highlighted: true,
-    badge: 'Most Popular',
-  },
-  {
-    name: 'Premium',
-    price: '$99',
-    period: '/month',
-    yearlyPrice: '$990',
+    yearlyPrice: '$790',
     description: 'For established operators',
     features: [
       { name: 'Unlimited listings', included: true },
@@ -103,9 +78,10 @@ const plans = [
       { name: 'Featured placement', included: true },
       { name: 'Dedicated support', included: true },
     ],
-    cta: 'Go Premium',
-    ctaLink: '/register?plan=premium',
-    highlighted: false,
+    cta: 'Go Pro',
+    ctaLink: '/register?plan=pro',
+    highlighted: true,
+    badge: 'Most Popular',
   },
 ]
 
@@ -267,7 +243,7 @@ export default function PricingPage() {
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {plans.map((plan) => (
               <Card
                 key={plan.name}
