@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, CheckCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface ListingCardProps {
   listing: {
@@ -10,28 +9,44 @@ interface ListingCardProps {
     name: string;
     city: string | null;
     region?: { name: string } | null;
+    regions?: { name: string } | null;
     description_short: string | null;
     price_range: string | null;
     is_featured: boolean;
     is_verified: boolean;
+    seasons?: string[] | null;
     primary_image?: string | null;
+    listing_images?: { url: string; is_primary: boolean }[];
     activities?: { name: string }[];
+    listing_activities?: { activity_id: number; activities: { name: string } }[];
   };
-  locale: string;
+  locale?: string;
 }
 
 export function ListingCard({ listing, locale }: ListingCardProps) {
+  // Get primary image from either primary_image or listing_images
+  const primaryImage = listing.primary_image ||
+    listing.listing_images?.find((img) => img.is_primary)?.url ||
+    listing.listing_images?.[0]?.url;
+
+  // Get region name from either region or regions
+  const regionName = listing.region?.name || listing.regions?.name;
+
+  // Get activities from either activities or listing_activities
+  const activities = listing.activities ||
+    listing.listing_activities?.map((la) => la.activities).filter(Boolean) ||
+    [];
+
   return (
-    <Link href={`/${locale}/listing/${listing.slug}`}>
-      <div className="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+    <Link href={`/adventures/${listing.slug}`}>
+      <div className="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow h-full">
         {/* Image */}
         <div className="aspect-[4/3] relative bg-gray-100">
-          {listing.primary_image ? (
-            <Image
-              src={listing.primary_image}
+          {primaryImage ? (
+            <img
+              src={primaryImage}
               alt={listing.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -68,11 +83,11 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
             )}
           </div>
 
-          {(listing.city || listing.region) && (
+          {(listing.city || regionName) && (
             <div className="flex items-center gap-1 mt-1 text-sm text-gray-500">
               <MapPin className="w-4 h-4" />
               <span>
-                {[listing.city, listing.region?.name].filter(Boolean).join(', ')}
+                {[listing.city, regionName].filter(Boolean).join(', ')}
               </span>
             </div>
           )}
@@ -84,19 +99,19 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
           )}
 
           {/* Activities */}
-          {listing.activities && listing.activities.length > 0 && (
+          {activities && activities.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1">
-              {listing.activities.slice(0, 3).map((activity) => (
+              {activities.slice(0, 3).map((activity, idx) => (
                 <span
-                  key={activity.name}
+                  key={activity.name || idx}
                   className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded"
                 >
                   {activity.name}
                 </span>
               ))}
-              {listing.activities.length > 3 && (
+              {activities.length > 3 && (
                 <span className="text-xs text-gray-400">
-                  +{listing.activities.length - 3}
+                  +{activities.length - 3}
                 </span>
               )}
             </div>
