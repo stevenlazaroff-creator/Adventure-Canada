@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS operators (
   email TEXT NOT NULL,
   business_name TEXT NOT NULL,
   phone TEXT,
+  province TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );

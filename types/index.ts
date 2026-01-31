@@ -10,6 +10,7 @@ export interface Operator {
   email: string;
   business_name: string | null;
   phone: string | null;
+  province: string | null;
   created_at: string;
   updated_at: string;
 }
