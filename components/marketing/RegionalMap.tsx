@@ -54,11 +54,12 @@ const provinceSlugs: Record<string, string> = {
 };
 
 // ViewBox coordinates for each region (zoomed in)
+// Adjusted to ensure all provinces in each region are fully visible and centered
 const regionViewBoxes: Record<string, string> = {
-  western: '-26000 -10000 24000 24000',
-  eastern: '-8000 -4000 22000 20000',
-  atlantic: '4000 -4000 22000 18000',
-  northern: '-22000 -16500 48000 20000',
+  western: '-27000 -14000 35000 32000',   // BC, AB, SK, MB
+  eastern: '-14000 -10000 32000 30000',   // ON, QC
+  atlantic: '-2000 -10000 38000 28000',   // NB, NS, PE, NL
+  northern: '-26000 -17000 56000 28000',  // YT, NT, NU
 };
 
 // Type for province data
