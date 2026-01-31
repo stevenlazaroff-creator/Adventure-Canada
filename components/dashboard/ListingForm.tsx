@@ -172,7 +172,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
       address: formData.address || null,
       city: formData.city || null,
       province: formData.province || null,
-      region_id: formData.region_id ? parseInt(formData.region_id) : null,
+      region_id: formData.region_id || null,
       postal_code: formData.postal_code || null,
       description_short: limits.descriptionLength > 0
         ? formData.description_short?.slice(0, limits.descriptionLength) || null
