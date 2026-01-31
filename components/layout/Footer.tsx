@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { MapPin, Mail, Phone } from 'lucide-react';
+import { MapPin, Mail } from 'lucide-react';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -56,15 +56,15 @@ export function Footer() {
             {/* Contact Info */}
             <div className="mt-6 space-y-3">
               <a
-                href="mailto:hello@adventurecanada.com"
+                href="mailto:hello@adventure-canada.com"
                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                hello@adventurecanada.com
+                hello@adventure-canada.com
               </a>
               <div className="flex items-center gap-3 text-sm text-gray-400">
                 <MapPin className="w-4 h-4" />
-                Vancouver, British Columbia, Canada
+                Montreal, Quebec, Canada
               </div>
             </div>
 

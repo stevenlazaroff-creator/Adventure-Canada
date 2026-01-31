@@ -3,60 +3,25 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Card, CardContent, CardHeader } from '@/components/ui/Card'
+import { Card, CardContent } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
-import { Mail, MapPin, Phone, Clock, MessageSquare, HelpCircle, Building } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 
 const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'hello@adventurecanada.com',
-    href: 'mailto:hello@adventurecanada.com',
+    value: 'hello@adventure-canada.com',
+    href: 'mailto:hello@adventure-canada.com',
     description: 'We typically respond within 24 hours',
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '+1 (800) 555-ADVENTURE',
-    href: 'tel:+18005553838',
-    description: 'Mon-Fri 9am-5pm PST',
   },
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Vancouver, BC, Canada',
+    value: 'Montreal, Quebec, Canada',
     href: null,
     description: 'Remote-first company',
-  },
-  {
-    icon: Clock,
-    label: 'Business Hours',
-    value: 'Monday - Friday',
-    href: null,
-    description: '9:00 AM - 5:00 PM PST',
-  },
-]
-
-const topics = [
-  {
-    icon: MessageSquare,
-    title: 'General Inquiries',
-    description: 'Questions about Adventure Canada or our platform',
-    email: 'hello@adventurecanada.com',
-  },
-  {
-    icon: Building,
-    title: 'Operator Support',
-    description: 'Help with your listing, billing, or account',
-    email: 'operators@adventurecanada.com',
-  },
-  {
-    icon: HelpCircle,
-    title: 'Partnership Opportunities',
-    description: 'Business development and partnerships',
-    email: 'partnerships@adventurecanada.com',
   },
 ]
 
@@ -71,6 +36,7 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({
@@ -82,12 +48,29 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-    setIsSubmitted(true)
-    setIsSubmitting(false)
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -136,44 +119,6 @@ export default function ContactPage() {
               ))}
             </div>
 
-            {/* Topic-specific Contacts */}
-            <Card>
-              <CardHeader>
-                <h3 className="font-semibold text-gray-900">Contact by Topic</h3>
-              </CardHeader>
-              <CardContent className="pt-0 space-y-4">
-                {topics.map((topic) => (
-                  <div key={topic.title} className="flex items-start gap-3">
-                    <topic.icon className="w-5 h-5 text-gray-400 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-gray-900">{topic.title}</h4>
-                      <p className="text-sm text-gray-500">{topic.description}</p>
-                      <a
-                        href={`mailto:${topic.email}`}
-                        className="text-sm text-primary-600 hover:text-primary-700"
-                      >
-                        {topic.email}
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            {/* FAQ Link */}
-            <Card className="bg-primary-50 border-primary-200">
-              <CardContent className="py-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Looking for quick answers?</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Check out our pricing page FAQ section for answers to common questions.
-                </p>
-                <Link href={`/${locale}/pricing#faq`}>
-                  <Button variant="outline" size="sm">
-                    View FAQs
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Contact Form */}
@@ -296,6 +241,12 @@ export default function ContactPage() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
                       />
                     </div>
+
+                    {error && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                        {error}
+                      </div>
+                    )}
 
                     <div className="flex items-center gap-4">
                       <Button
