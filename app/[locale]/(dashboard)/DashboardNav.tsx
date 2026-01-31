@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import type { Subscription } from '@/types'
 
@@ -11,7 +12,7 @@ interface DashboardNavProps {
 
 const navItems = [
   {
-    label: 'Dashboard',
+    labelKey: 'title',
     href: '/dashboard',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,7 +21,7 @@ const navItems = [
     ),
   },
   {
-    label: 'My Listings',
+    labelKey: 'myListings',
     href: '/dashboard/listings',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +30,7 @@ const navItems = [
     ),
   },
   {
-    label: 'Analytics',
+    labelKey: 'analytics',
     href: '/dashboard/analytics',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +40,7 @@ const navItems = [
     requiresTier: ['pro', 'premium'],
   },
   {
-    label: 'Inquiries',
+    labelKey: 'inquiries',
     href: '/dashboard/inquiries',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,7 +50,7 @@ const navItems = [
     requiresTier: ['pro', 'premium'],
   },
   {
-    label: 'Billing',
+    labelKey: 'billing',
     href: '/dashboard/billing',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +59,7 @@ const navItems = [
     ),
   },
   {
-    label: 'Settings',
+    labelKey: 'settings',
     href: '/dashboard/settings',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,6 +72,7 @@ const navItems = [
 
 export function DashboardNav({ subscription }: DashboardNavProps) {
   const pathname = usePathname()
+  const t = useTranslations('dashboard')
   const currentTier = subscription?.tier || 'free'
 
   // Extract locale from pathname
@@ -99,10 +101,10 @@ export function DashboardNav({ subscription }: DashboardNavProps) {
             )}
           >
             {item.icon}
-            <span>{item.label}</span>
+            <span>{t(item.labelKey)}</span>
             {isLocked && (
               <span className="ml-auto text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded">
-                Pro
+                {t('pro')}
               </span>
             )}
           </Link>

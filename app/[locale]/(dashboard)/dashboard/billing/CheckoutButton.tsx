@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import type { SubscriptionTier } from '@/types'
 
@@ -13,6 +14,8 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly')
+  const t = useTranslations('dashboard')
+  const tPricing = useTranslations('pricing.tiers')
 
   const handleCheckout = async () => {
     setIsLoading(true)
@@ -54,6 +57,12 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
   const tierOrder: SubscriptionTier[] = ['free', 'basic', 'pro']
   const isUpgrade = tierOrder.indexOf(tier) > tierOrder.indexOf(currentTier)
 
+  const getTierLabel = (tierKey: SubscriptionTier) => {
+    if (tierKey === 'free') return tPricing('free.name')
+    if (tierKey === 'basic') return tPricing('basic.name')
+    return tPricing('pro.name')
+  }
+
   return (
     <div className="space-y-3">
       <div className="flex gap-2">
@@ -66,7 +75,7 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
               : 'border-gray-200 text-gray-600 hover:border-gray-300'
           }`}
         >
-          Monthly
+          {t('monthly')}
         </button>
         <button
           type="button"
@@ -77,7 +86,7 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
               : 'border-gray-200 text-gray-600 hover:border-gray-300'
           }`}
         >
-          Annual
+          {t('annual')}
         </button>
       </div>
 
@@ -91,7 +100,7 @@ export function CheckoutButton({ tier, currentTier }: CheckoutButtonProps) {
         onClick={handleCheckout}
         isLoading={isLoading}
       >
-        {isUpgrade ? 'Upgrade' : 'Switch'} to {tier.charAt(0).toUpperCase() + tier.slice(1)}
+        {isUpgrade ? t('upgradeTo', { tier: getTierLabel(tier) }) : t('switchTo', { tier: getTierLabel(tier) })}
       </Button>
     </div>
   )

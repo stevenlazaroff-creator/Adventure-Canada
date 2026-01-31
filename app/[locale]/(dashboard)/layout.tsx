@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 import { DashboardNav } from './DashboardNav'
 
 interface DashboardLayoutProps {
@@ -14,6 +15,7 @@ export default async function DashboardLayout({
   params,
 }: DashboardLayoutProps) {
   const { locale } = await params
+  const t = await getTranslations('dashboard')
   const supabase = await createClient()
 
   const {
@@ -58,7 +60,7 @@ export default async function DashboardLayout({
                   type="submit"
                   className="text-sm text-gray-500 hover:text-gray-700"
                 >
-                  Sign out
+                  {t('signOut')}
                 </button>
               </form>
             </div>

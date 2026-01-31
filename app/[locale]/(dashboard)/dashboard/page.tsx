@@ -1,10 +1,13 @@
 import { createClient } from '@/lib/supabase/server'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
+  const t = await getTranslations('dashboard')
+  const tPricing = await getTranslations('pricing.tiers')
 
   const {
     data: { user },
@@ -28,21 +31,21 @@ export default async function DashboardPage() {
   const subscription = operator?.subscriptions?.[0]
   const tier = subscription?.tier || 'free'
 
-  const tierLabels: Record<string, string> = {
-    free: 'Free',
-    basic: 'Basic',
-    pro: 'Pro',
-    premium: 'Premium',
+  const getTierLabel = (tierKey: string) => {
+    if (tierKey === 'free') return tPricing('free.name')
+    if (tierKey === 'basic') return tPricing('basic.name')
+    if (tierKey === 'pro') return tPricing('pro.name')
+    return tierKey
   }
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
-          Welcome back, {operator?.business_name || 'there'}!
+          {t('welcomeBack', { name: operator?.business_name || 'there' })}
         </h1>
         <p className="text-gray-600 mt-1">
-          Here&apos;s an overview of your adventure listings
+          {t('overviewSubtitle')}
         </p>
       </div>
 
@@ -50,15 +53,15 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Current Plan</div>
+            <div className="text-sm font-medium text-gray-500">{t('currentPlan')}</div>
             <div className="mt-2 flex items-baseline gap-2">
               <span className="text-3xl font-bold text-gray-900">
-                {tierLabels[tier]}
+                {getTierLabel(tier)}
               </span>
               {tier === 'free' && (
                 <Link href="/dashboard/billing">
                   <Button variant="outline" size="sm">
-                    Upgrade
+                    {t('upgrade')}
                   </Button>
                 </Link>
               )}
@@ -68,14 +71,14 @@ export default async function DashboardPage() {
 
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Total Listings</div>
+            <div className="text-sm font-medium text-gray-500">{t('totalListings')}</div>
             <div className="mt-2 flex items-baseline gap-2">
               <span className="text-3xl font-bold text-gray-900">
                 {listingCount || 0}
               </span>
               <Link href="/dashboard/listings/new">
                 <Button variant="outline" size="sm">
-                  Add New
+                  {t('addNew')}
                 </Button>
               </Link>
             </div>
@@ -84,11 +87,11 @@ export default async function DashboardPage() {
 
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Account Status</div>
+            <div className="text-sm font-medium text-gray-500">{t('accountStatus')}</div>
             <div className="mt-2">
               <span className="inline-flex items-center gap-1.5 text-green-700 bg-green-50 px-3 py-1 rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                Active
+                {t('active')}
               </span>
             </div>
           </CardContent>
@@ -98,7 +101,7 @@ export default async function DashboardPage() {
       {/* Quick actions */}
       <Card>
         <CardHeader>
-          <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{t('quickActions')}</h2>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link
@@ -111,8 +114,8 @@ export default async function DashboardPage() {
               </svg>
             </div>
             <div>
-              <div className="font-medium text-gray-900">Create New Listing</div>
-              <div className="text-sm text-gray-500">Add a new adventure to your portfolio</div>
+              <div className="font-medium text-gray-900">{t('createNewListing')}</div>
+              <div className="text-sm text-gray-500">{t('createNewListingDesc')}</div>
             </div>
           </Link>
 
@@ -126,8 +129,8 @@ export default async function DashboardPage() {
               </svg>
             </div>
             <div>
-              <div className="font-medium text-gray-900">Edit Profile</div>
-              <div className="text-sm text-gray-500">Update your business information</div>
+              <div className="font-medium text-gray-900">{t('editProfile')}</div>
+              <div className="text-sm text-gray-500">{t('editProfileDesc')}</div>
             </div>
           </Link>
 
@@ -142,9 +145,9 @@ export default async function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <div className="font-medium text-gray-900">Upgrade Your Plan</div>
+                <div className="font-medium text-gray-900">{t('upgradePlan')}</div>
                 <div className="text-sm text-gray-500">
-                  Get more features like analytics, inquiry forms, and featured listings
+                  {t('upgradePlanDesc')}
                 </div>
               </div>
             </Link>
