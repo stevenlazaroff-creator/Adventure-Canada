@@ -123,9 +123,9 @@ export default function RegisterPage() {
   return (
     <div className="w-full max-w-md">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">List your business</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Register Your Adventure Tour Company</h1>
         <p className="mt-2 text-gray-600">
-          Join Adventure Canada and reach thousands of adventure seekers
+          Join Canada's premier directory for outdoor adventure operators and connect with thousands of travelers
         </p>
       </div>
 

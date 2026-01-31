@@ -81,10 +81,10 @@ export default async function AdventuresPage({ searchParams }: AdventuresPagePro
       {/* Hero */}
       <div className="bg-secondary-700 text-white py-16">
         <div className="container-wide">
-          <h1 className="text-4xl font-bold mb-4">Explore Adventures</h1>
+          <h1 className="text-4xl font-bold mb-4">Find Adventure Tours & Outfitters Across Canada</h1>
           <p className="text-xl text-secondary-100 max-w-2xl">
-            Discover incredible outdoor experiences across Canada. From mountain peaks to ocean shores,
-            find your next adventure.
+            Browse our directory of verified adventure tour operators. From mountain peaks to ocean shores,
+            connect with the perfect outfitter for your next Canadian expedition.
           </p>
         </div>
       </div>

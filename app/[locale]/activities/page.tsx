@@ -67,10 +67,10 @@ export default async function ActivitiesPage({ params }: ActivitiesPageProps) {
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Adventure Activities</h1>
+          <h1 className="text-4xl font-bold mb-4">Browse Adventure Activities & Outdoor Experiences in Canada</h1>
           <p className="text-xl text-primary-100 max-w-2xl">
-            Discover thrilling adventures across Canada. From water sports to winter activities,
-            find your next outdoor experience.
+            Explore our directory by activity type. From kayaking and hiking to dog sledding and northern lights tours,
+            find tour operators specializing in your favorite outdoor pursuits.
           </p>
         </div>
       </div>
