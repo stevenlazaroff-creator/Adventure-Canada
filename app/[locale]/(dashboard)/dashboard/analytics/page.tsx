@@ -3,10 +3,12 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { getTranslations } from 'next-intl/server'
 import { TIER_LIMITS, type SubscriptionTier } from '@/types'
 
 export default async function AnalyticsPage() {
   const supabase = await createClient()
+  const t = await getTranslations('dashboard')
 
   const {
     data: { user },
@@ -31,8 +33,8 @@ export default async function AnalyticsPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
-          <p className="text-gray-600 mt-1">Track your listing performance</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('analytics')}</h1>
+          <p className="text-gray-600 mt-1">{t('trackPerformance')}</p>
         </div>
 
         <Card>
@@ -42,13 +44,12 @@ export default async function AnalyticsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Upgrade to Pro</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t('upgradeToPro')}</h3>
             <p className="text-gray-500 mb-6 max-w-md mx-auto">
-              Analytics is available on Pro and Premium plans. Upgrade to see detailed
-              insights about your listing views, clicks, and inquiries.
+              {t('analyticsUpgradeDesc')}
             </p>
             <Link href="/dashboard/billing">
-              <Button variant="primary">Upgrade Now</Button>
+              <Button variant="primary">{t('upgradeNow')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -98,36 +99,36 @@ export default async function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
-        <p className="text-gray-600 mt-1">Last 30 days performance</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('analytics')}</h1>
+        <p className="text-gray-600 mt-1">{t('last30Days')}</p>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Total Views</div>
+            <div className="text-sm font-medium text-gray-500">{t('totalViews')}</div>
             <div className="text-3xl font-bold text-gray-900 mt-1">{totals.views}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Website Clicks</div>
+            <div className="text-sm font-medium text-gray-500">{t('websiteClicks')}</div>
             <div className="text-3xl font-bold text-gray-900 mt-1">{totals.website_clicks}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Phone Clicks</div>
+            <div className="text-sm font-medium text-gray-500">{t('phoneClicks')}</div>
             <div className="text-3xl font-bold text-gray-900 mt-1">{totals.phone_clicks}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="pt-6">
-            <div className="text-sm font-medium text-gray-500">Inquiries</div>
+            <div className="text-sm font-medium text-gray-500">{t('inquiries')}</div>
             <div className="text-3xl font-bold text-gray-900 mt-1">{totals.inquiries}</div>
           </CardContent>
         </Card>
@@ -136,7 +137,7 @@ export default async function AnalyticsPage() {
       {/* Chart placeholder */}
       <Card>
         <CardHeader>
-          <h2 className="text-lg font-semibold">Views Over Time</h2>
+          <h2 className="text-lg font-semibold">{t('viewsOverTime')}</h2>
         </CardHeader>
         <CardContent>
           {Object.keys(eventsByDay).length > 0 ? (
@@ -156,7 +157,7 @@ export default async function AnalyticsPage() {
                       <div
                         className="w-full bg-primary-500 rounded-t"
                         style={{ height: `${Math.max(height, 4)}%` }}
-                        title={`${day}: ${data.views} views`}
+                        title={`${day}: ${data.views} ${t('views')}`}
                       />
                       <span className="text-xs text-gray-400 mt-1 rotate-45 origin-left">
                         {day.slice(5)}
@@ -167,7 +168,7 @@ export default async function AnalyticsPage() {
             </div>
           ) : (
             <div className="h-64 flex items-center justify-center text-gray-500">
-              No data yet. Views will appear here once your listings get traffic.
+              {t('noDataYet')}
             </div>
           )}
         </CardContent>
@@ -176,7 +177,7 @@ export default async function AnalyticsPage() {
       {/* Per-listing breakdown */}
       <Card>
         <CardHeader>
-          <h2 className="text-lg font-semibold">Performance by Listing</h2>
+          <h2 className="text-lg font-semibold">{t('performanceByListing')}</h2>
         </CardHeader>
         <CardContent>
           {listings && listings.length > 0 ? (
@@ -193,10 +194,10 @@ export default async function AnalyticsPage() {
                     <span className="font-medium text-gray-900">{listing.name}</span>
                     <div className="flex gap-6 text-sm">
                       <span className="text-gray-500">
-                        <span className="font-medium text-gray-900">{views}</span> views
+                        <span className="font-medium text-gray-900">{views}</span> {t('views')}
                       </span>
                       <span className="text-gray-500">
-                        <span className="font-medium text-gray-900">{clicks}</span> clicks
+                        <span className="font-medium text-gray-900">{clicks}</span> {t('clicks')}
                       </span>
                     </div>
                   </div>
@@ -205,7 +206,7 @@ export default async function AnalyticsPage() {
             </div>
           ) : (
             <p className="text-gray-500 py-4">
-              No listings yet. Create a listing to start tracking analytics.
+              {t('noListingsAnalytics')}
             </p>
           )}
         </CardContent>

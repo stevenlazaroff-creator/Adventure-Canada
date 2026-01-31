@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -10,6 +11,8 @@ import { createClient } from '@/lib/supabase/client'
 export default function SettingsPage() {
   const router = useRouter()
   const pathname = usePathname()
+  const t = useTranslations('dashboard')
+  const tAuth = useTranslations('auth')
   const locale = pathname.split('/')[1] || 'en'
   const [formData, setFormData] = useState({
     business_name: '',
@@ -58,7 +61,7 @@ export default function SettingsPage() {
     }
 
     loadProfile()
-  }, [router])
+  }, [router, locale])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -86,7 +89,7 @@ export default function SettingsPage() {
     } = await supabase.auth.getUser()
 
     if (!user) {
-      setMessage({ type: 'error', text: 'You must be logged in' })
+      setMessage({ type: 'error', text: t('mustBeLoggedIn') })
       setIsSaving(false)
       return
     }
@@ -103,7 +106,7 @@ export default function SettingsPage() {
     if (error) {
       setMessage({ type: 'error', text: error.message })
     } else {
-      setMessage({ type: 'success', text: 'Profile updated successfully' })
+      setMessage({ type: 'success', text: t('profileUpdated') })
       router.refresh()
     }
 
@@ -116,13 +119,13 @@ export default function SettingsPage() {
     setPasswordMessage(null)
 
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordMessage({ type: 'error', text: 'Passwords do not match' })
+      setPasswordMessage({ type: 'error', text: t('passwordsDoNotMatch') })
       setIsChangingPassword(false)
       return
     }
 
     if (passwordData.newPassword.length < 8) {
-      setPasswordMessage({ type: 'error', text: 'Password must be at least 8 characters' })
+      setPasswordMessage({ type: 'error', text: t('passwordMinLength') })
       setIsChangingPassword(false)
       return
     }
@@ -136,7 +139,7 @@ export default function SettingsPage() {
     if (error) {
       setPasswordMessage({ type: 'error', text: error.message })
     } else {
-      setPasswordMessage({ type: 'success', text: 'Password updated successfully' })
+      setPasswordMessage({ type: 'success', text: t('passwordUpdated') })
       setPasswordData({
         currentPassword: '',
         newPassword: '',
@@ -158,15 +161,15 @@ export default function SettingsPage() {
   return (
     <div className="max-w-2xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-600 mt-1">Manage your account settings</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('settings')}</h1>
+        <p className="text-gray-600 mt-1">{t('manageAccountSettings')}</p>
       </div>
 
       {/* Profile Settings */}
       <Card>
         <form onSubmit={handleSubmit}>
           <CardHeader>
-            <h2 className="text-lg font-semibold">Profile Information</h2>
+            <h2 className="text-lg font-semibold">{t('profileInformation')}</h2>
           </CardHeader>
           <CardContent className="space-y-4">
             {message && (
@@ -182,7 +185,7 @@ export default function SettingsPage() {
             )}
 
             <Input
-              label="Business Name"
+              label={t('businessName')}
               name="business_name"
               value={formData.business_name}
               onChange={handleChange}
@@ -190,16 +193,16 @@ export default function SettingsPage() {
             />
 
             <Input
-              label="Email"
+              label={tAuth('email')}
               name="email"
               type="email"
               value={formData.email}
               disabled
-              hint="Contact support to change your email address"
+              hint={t('contactSupportEmail')}
             />
 
             <Input
-              label="Phone"
+              label={t('phone')}
               name="phone"
               type="tel"
               value={formData.phone}
@@ -209,7 +212,7 @@ export default function SettingsPage() {
           </CardContent>
           <CardFooter>
             <Button type="submit" variant="primary" isLoading={isSaving}>
-              Save Changes
+              {t('saveChanges')}
             </Button>
           </CardFooter>
         </form>
@@ -219,7 +222,7 @@ export default function SettingsPage() {
       <Card>
         <form onSubmit={handlePasswordSubmit}>
           <CardHeader>
-            <h2 className="text-lg font-semibold">Change Password</h2>
+            <h2 className="text-lg font-semibold">{t('changePassword')}</h2>
           </CardHeader>
           <CardContent className="space-y-4">
             {passwordMessage && (
@@ -235,26 +238,26 @@ export default function SettingsPage() {
             )}
 
             <Input
-              label="New Password"
+              label={t('newPassword')}
               name="newPassword"
               type="password"
               value={passwordData.newPassword}
               onChange={handlePasswordChange}
-              placeholder="At least 8 characters"
+              placeholder={t('atLeast8Chars')}
             />
 
             <Input
-              label="Confirm New Password"
+              label={t('confirmNewPassword')}
               name="confirmPassword"
               type="password"
               value={passwordData.confirmPassword}
               onChange={handlePasswordChange}
-              placeholder="Confirm your new password"
+              placeholder={t('confirmPasswordPlaceholder')}
             />
           </CardContent>
           <CardFooter>
             <Button type="submit" variant="primary" isLoading={isChangingPassword}>
-              Update Password
+              {t('updatePassword')}
             </Button>
           </CardFooter>
         </form>
@@ -263,13 +266,13 @@ export default function SettingsPage() {
       {/* Danger Zone */}
       <Card className="border-red-200">
         <CardHeader>
-          <h2 className="text-lg font-semibold text-red-600">Danger Zone</h2>
+          <h2 className="text-lg font-semibold text-red-600">{t('dangerZone')}</h2>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-gray-600 mb-4">
-            Once you delete your account, there is no going back. Please be certain.
+            {t('deleteAccountWarning')}
           </p>
-          <Button variant="danger">Delete Account</Button>
+          <Button variant="danger">{t('deleteAccount')}</Button>
         </CardContent>
       </Card>
     </div>

@@ -1,35 +1,14 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
+import { getTranslations } from 'next-intl/server'
 import { TIER_LIMITS, PRICING, type SubscriptionTier } from '@/types'
 import { CheckoutButton } from './CheckoutButton'
 
-const tierFeatures: Record<SubscriptionTier, string[]> = {
-  free: [
-    'Basic listing with name and location',
-    'Contact email visible',
-    'Listed in directory',
-  ],
-  basic: [
-    'Everything in Free, plus:',
-    'Phone number displayed',
-    'Website link',
-    'Short description (500 chars)',
-    '1 photo',
-  ],
-  pro: [
-    'Everything in Basic, plus:',
-    'Full description (2000 chars)',
-    'Logo display',
-    '5 photos',
-    'Social media links',
-    'Analytics dashboard',
-    'Inquiry form',
-  ],
-}
-
 export default async function BillingPage() {
   const supabase = await createClient()
+  const t = await getTranslations('dashboard')
+  const tPricing = await getTranslations('pricing.tiers')
 
   const {
     data: { user },
@@ -50,27 +29,61 @@ export default async function BillingPage() {
 
   const tiers: SubscriptionTier[] = ['free', 'basic', 'pro']
 
+  const getTierFeatures = (tier: SubscriptionTier): string[] => {
+    if (tier === 'free') {
+      return [
+        t('basicListingFeature'),
+        t('contactEmailFeature'),
+        t('listedInDirectory'),
+      ]
+    }
+    if (tier === 'basic') {
+      return [
+        t('everythingInFree'),
+        t('phoneDisplayed'),
+        t('websiteLink'),
+        t('shortDescription'),
+        t('onePhoto'),
+      ]
+    }
+    return [
+      t('everythingInBasic'),
+      t('fullDescription'),
+      t('logoDisplay'),
+      t('fivePhotos'),
+      t('socialMediaLinks'),
+      t('analyticsDashboard'),
+      t('inquiryForm'),
+    ]
+  }
+
+  const getTierLabel = (tier: SubscriptionTier) => {
+    if (tier === 'free') return tPricing('free.name')
+    if (tier === 'basic') return tPricing('basic.name')
+    return tPricing('pro.name')
+  }
+
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Billing & Subscription</h1>
-        <p className="text-gray-600 mt-1">Manage your subscription plan</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('billingSubscription')}</h1>
+        <p className="text-gray-600 mt-1">{t('manageSubscription')}</p>
       </div>
 
       {/* Current Plan */}
       <Card>
         <CardHeader>
-          <h2 className="text-lg font-semibold">Current Plan</h2>
+          <h2 className="text-lg font-semibold">{t('currentPlan')}</h2>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-bold text-gray-900 capitalize">{currentTier}</p>
+              <p className="text-2xl font-bold text-gray-900">{getTierLabel(currentTier)}</p>
               {subscription?.current_period_end && (
                 <p className="text-sm text-gray-500">
                   {subscription.cancel_at_period_end
-                    ? `Expires on ${new Date(subscription.current_period_end).toLocaleDateString()}`
-                    : `Renews on ${new Date(subscription.current_period_end).toLocaleDateString()}`}
+                    ? t('expiresOn', { date: new Date(subscription.current_period_end).toLocaleDateString() })
+                    : t('renewsOn', { date: new Date(subscription.current_period_end).toLocaleDateString() })}
                 </p>
               )}
             </div>
@@ -80,7 +93,7 @@ export default async function BillingPage() {
                   type="submit"
                   className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                 >
-                  Manage Subscription →
+                  {t('manageSubscriptionLink')}
                 </button>
               </form>
             )}
@@ -90,12 +103,12 @@ export default async function BillingPage() {
 
       {/* Pricing Plans */}
       <div>
-        <h2 className="text-lg font-semibold mb-4">Available Plans</h2>
+        <h2 className="text-lg font-semibold mb-4">{t('availablePlans')}</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {tiers.map((tier) => {
             const isCurrentPlan = tier === currentTier
             const pricing = PRICING[tier]
-            const features = tierFeatures[tier]
+            const features = getTierFeatures(tier)
 
             return (
               <Card
@@ -104,20 +117,20 @@ export default async function BillingPage() {
               >
                 <CardContent className="pt-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 capitalize">{tier}</h3>
+                    <h3 className="text-xl font-bold text-gray-900">{getTierLabel(tier)}</h3>
                     <div className="mt-2">
                       {pricing.monthly === 0 ? (
-                        <span className="text-3xl font-bold">Free</span>
+                        <span className="text-3xl font-bold">{t('free')}</span>
                       ) : (
                         <>
                           <span className="text-3xl font-bold">${pricing.monthly}</span>
-                          <span className="text-gray-500">/month</span>
+                          <span className="text-gray-500">{t('perMonth')}</span>
                         </>
                       )}
                     </div>
                     {pricing.annual > 0 && (
                       <p className="text-sm text-gray-500 mt-1">
-                        or ${pricing.annual}/year (save ${pricing.monthly * 12 - pricing.annual})
+                        {t('orAnnual', { annual: pricing.annual, savings: pricing.monthly * 12 - pricing.annual })}
                       </p>
                     )}
                   </div>
@@ -145,7 +158,7 @@ export default async function BillingPage() {
 
                   {isCurrentPlan ? (
                     <div className="w-full py-2 px-4 bg-gray-100 text-gray-600 text-center rounded-lg font-medium">
-                      Current Plan
+                      {t('currentPlan')}
                     </div>
                   ) : tier === 'free' ? (
                     <div className="w-full py-2 px-4 bg-gray-50 text-gray-400 text-center rounded-lg font-medium">
@@ -164,28 +177,25 @@ export default async function BillingPage() {
       {/* FAQ */}
       <Card>
         <CardHeader>
-          <h2 className="text-lg font-semibold">Frequently Asked Questions</h2>
+          <h2 className="text-lg font-semibold">{t('faq')}</h2>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <h3 className="font-medium text-gray-900">Can I upgrade or downgrade anytime?</h3>
+            <h3 className="font-medium text-gray-900">{t('faqUpgradeTitle')}</h3>
             <p className="text-sm text-gray-600 mt-1">
-              Yes! You can upgrade anytime and the new features will be available immediately.
-              If you downgrade, you&apos;ll keep your current features until the end of your billing period.
+              {t('faqUpgradeAnswer')}
             </p>
           </div>
           <div>
-            <h3 className="font-medium text-gray-900">What happens to my listings if I downgrade?</h3>
+            <h3 className="font-medium text-gray-900">{t('faqDowngradeTitle')}</h3>
             <p className="text-sm text-gray-600 mt-1">
-              Your listings will remain, but features above your new plan limit will be hidden.
-              For example, extra photos won&apos;t be displayed until you upgrade again.
+              {t('faqDowngradeAnswer')}
             </p>
           </div>
           <div>
-            <h3 className="font-medium text-gray-900">Do you offer refunds?</h3>
+            <h3 className="font-medium text-gray-900">{t('faqRefundTitle')}</h3>
             <p className="text-sm text-gray-600 mt-1">
-              We offer a 14-day money-back guarantee. Contact us within 14 days of your purchase
-              for a full refund.
+              {t('faqRefundAnswer')}
             </p>
           </div>
         </CardContent>

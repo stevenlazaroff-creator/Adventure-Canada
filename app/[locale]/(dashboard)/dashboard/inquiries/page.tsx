@@ -3,11 +3,13 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { getTranslations } from 'next-intl/server'
 import { TIER_LIMITS, type SubscriptionTier, type Inquiry } from '@/types'
 import { InquiryList } from './InquiryList'
 
 export default async function InquiriesPage() {
   const supabase = await createClient()
+  const t = await getTranslations('dashboard')
 
   const {
     data: { user },
@@ -32,8 +34,8 @@ export default async function InquiriesPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Inquiries</h1>
-          <p className="text-gray-600 mt-1">Manage customer inquiries</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('inquiries')}</h1>
+          <p className="text-gray-600 mt-1">{t('manageInquiries')}</p>
         </div>
 
         <Card>
@@ -43,13 +45,12 @@ export default async function InquiriesPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Upgrade to Pro</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t('upgradeToPro')}</h3>
             <p className="text-gray-500 mb-6 max-w-md mx-auto">
-              Inquiry forms are available on Pro and Premium plans. Upgrade to receive
-              direct inquiries from potential customers through your listings.
+              {t('inquiriesUpgradeDesc')}
             </p>
             <Link href="/dashboard/billing">
-              <Button variant="primary">Upgrade Now</Button>
+              <Button variant="primary">{t('upgradeNow')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -72,13 +73,19 @@ export default async function InquiriesPage() {
 
   const newCount = inquiries?.filter((i) => i.status === 'new').length || 0
 
+  const getSubtitle = () => {
+    if (newCount === 0) return t('manageInquiries')
+    if (newCount === 1) return t('newInquiry', { count: newCount })
+    return t('newInquiries', { count: newCount })
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Inquiries</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('inquiries')}</h1>
           <p className="text-gray-600 mt-1">
-            {newCount > 0 ? `${newCount} new inquir${newCount === 1 ? 'y' : 'ies'}` : 'Manage customer inquiries'}
+            {getSubtitle()}
           </p>
         </div>
       </div>
@@ -91,10 +98,9 @@ export default async function InquiriesPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No inquiries yet</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t('noInquiriesYet')}</h3>
             <p className="text-gray-500 max-w-md mx-auto">
-              When customers submit inquiry forms on your listings, they&apos;ll appear here.
-              Make sure your listings are active to start receiving inquiries.
+              {t('noInquiriesDesc')}
             </p>
           </CardContent>
         </Card>

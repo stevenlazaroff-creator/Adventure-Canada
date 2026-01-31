@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import type { Listing } from '@/types'
 
@@ -11,15 +12,10 @@ const statusColors: Record<string, string> = {
   suspended: 'bg-red-100 text-red-700',
 }
 
-const statusLabels: Record<string, string> = {
-  draft: 'Draft',
-  pending: 'Pending Review',
-  active: 'Active',
-  suspended: 'Suspended',
-}
-
 export default async function ListingsPage() {
   const supabase = await createClient()
+  const t = await getTranslations('dashboard')
+  const tCommon = await getTranslations('common')
 
   const {
     data: { user },
@@ -38,19 +34,27 @@ export default async function ListingsPage() {
     .eq('operator_id', user.id)
     .order('created_at', { ascending: false })
 
+  const getStatusLabel = (status: string) => {
+    if (status === 'draft') return t('draft')
+    if (status === 'pending') return t('pendingReview')
+    if (status === 'active') return t('active')
+    if (status === 'suspended') return t('suspended')
+    return status
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Listings</h1>
-          <p className="text-gray-600 mt-1">Manage your adventure listings</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('myListings')}</h1>
+          <p className="text-gray-600 mt-1">{t('manageListings')}</p>
         </div>
         <Link href="/dashboard/listings/new">
           <Button variant="primary">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
-            Add Listing
+            {t('addListing')}
           </Button>
         </Link>
       </div>
@@ -63,12 +67,12 @@ export default async function ListingsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No listings yet</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t('noListingsYet')}</h3>
             <p className="text-gray-500 mb-6">
-              Create your first adventure listing to start attracting customers
+              {t('noListingsDesc')}
             </p>
             <Link href="/dashboard/listings/new">
-              <Button variant="primary">Create Your First Listing</Button>
+              <Button variant="primary">{t('createFirstListing')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -111,7 +115,7 @@ export default async function ListingsPage() {
                           </p>
                         </div>
                         <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[listing.status]}`}>
-                          {statusLabels[listing.status]}
+                          {getStatusLabel(listing.status)}
                         </span>
                       </div>
                       {listing.description_short && (
@@ -125,13 +129,13 @@ export default async function ListingsPage() {
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <Link href={`/dashboard/listings/${listing.id}/edit`}>
                         <Button variant="outline" size="sm">
-                          Edit
+                          {tCommon('edit')}
                         </Button>
                       </Link>
                       {listing.status === 'active' && (
                         <Link href={`/adventures/${listing.slug}`} target="_blank">
                           <Button variant="ghost" size="sm">
-                            View
+                            {t('view')}
                           </Button>
                         </Link>
                       )}
