@@ -113,10 +113,10 @@ export default async function RegionsPage({ params }: RegionsPageProps) {
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Explore Canada by Region</h1>
+          <h1 className="text-4xl font-bold mb-4">Adventure Tour Operators by Canadian Region</h1>
           <p className="text-xl text-primary-100 max-w-2xl">
-            From coast to coast to coast, discover unique adventures in every corner of Canada.
-            Each region offers its own spectacular landscapes and experiences.
+            From coast to coast to coast, find adventure outfitters in every corner of Canada.
+            Each region offers its own spectacular landscapes and unique outdoor experiences.
           </p>
         </div>
       </div>

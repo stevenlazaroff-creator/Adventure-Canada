@@ -95,10 +95,10 @@ export default function ContactPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
+          <h1 className="text-4xl font-bold mb-4">Contact Adventure Canada</h1>
           <p className="text-xl text-primary-100 max-w-2xl mx-auto">
-            Have a question or need assistance? We&apos;re here to help. Reach out and our team
-            will get back to you as soon as possible.
+            Questions about listing your tour company or finding an adventure outfitter? Our team
+            is here to help travelers and operators connect.
           </p>
         </div>
       </div>

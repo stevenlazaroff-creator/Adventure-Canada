@@ -48,8 +48,8 @@ export default function LoginPage() {
   return (
     <div className="w-full max-w-md">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
-        <p className="mt-2 text-gray-600">Sign in to manage your listings</p>
+        <h1 className="text-3xl font-bold text-gray-900">Sign In to Your Operator Account</h1>
+        <p className="mt-2 text-gray-600">Access your Adventure Canada dashboard to manage your tour listings</p>
       </div>
 
       <Card>
