@@ -271,6 +271,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
               onChange={handleChange}
               placeholder="Your adventure business name"
               required
+              autoComplete="organization"
             />
 
             <Input
@@ -281,6 +282,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
               onChange={handleChange}
               placeholder="contact@yourbusiness.com"
               required
+              autoComplete="email"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -292,6 +294,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 onChange={handleChange}
                 placeholder="+1 (555) 123-4567"
                 disabled={!limits.hasPhone}
+                autoComplete="tel"
               />
 
               <Input
@@ -302,6 +305,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 onChange={handleChange}
                 placeholder="https://yourbusiness.com"
                 disabled={!limits.hasWebsite}
+                autoComplete="url"
               />
             </div>
           </CardContent>
@@ -319,6 +323,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
               value={formData.address}
               onChange={handleChange}
               placeholder="123 Adventure Street"
+              autoComplete="street-address"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -328,6 +333,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 value={formData.city}
                 onChange={handleChange}
                 placeholder="Banff"
+                autoComplete="address-level2"
               />
 
               <Select
@@ -340,6 +346,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                   value: prov.code,
                   label: prov.name,
                 }))}
+                autoComplete="address-level1"
               />
 
               <div>
@@ -351,6 +358,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                   placeholder="A1A 1A1"
                   error={fieldErrors.postal_code}
                   required
+                  autoComplete="postal-code"
                 />
                 {formData.province && formData.region_id && (
                   <p className="mt-1 text-xs text-gray-500">
@@ -492,6 +500,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 value={formData.instagram_url}
                 onChange={handleChange}
                 placeholder="https://instagram.com/yourbusiness"
+                autoComplete="url"
               />
               <Input
                 label="Facebook URL"
@@ -500,6 +509,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 value={formData.facebook_url}
                 onChange={handleChange}
                 placeholder="https://facebook.com/yourbusiness"
+                autoComplete="url"
               />
               <Input
                 label="YouTube URL"
@@ -508,6 +518,7 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
                 value={formData.youtube_url}
                 onChange={handleChange}
                 placeholder="https://youtube.com/@yourbusiness"
+                autoComplete="url"
               />
             </CardContent>
           </Card>

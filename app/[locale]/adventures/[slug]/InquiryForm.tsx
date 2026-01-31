@@ -120,6 +120,7 @@ export function InquiryForm({ listingId, listingName }: InquiryFormProps) {
               value={formData.name}
               onChange={handleChange}
               placeholder="John Doe"
+              autoComplete="name"
             />
           </div>
 
@@ -135,6 +136,7 @@ export function InquiryForm({ listingId, listingName }: InquiryFormProps) {
               value={formData.email}
               onChange={handleChange}
               placeholder="john@example.com"
+              autoComplete="email"
             />
           </div>
 
@@ -149,6 +151,7 @@ export function InquiryForm({ listingId, listingName }: InquiryFormProps) {
               value={formData.phone}
               onChange={handleChange}
               placeholder="+1 (555) 000-0000"
+              autoComplete="tel"
             />
           </div>
 

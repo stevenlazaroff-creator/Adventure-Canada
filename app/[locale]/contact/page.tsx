@@ -229,6 +229,7 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="John Doe"
+                          autoComplete="name"
                         />
                       </div>
                       <div>
@@ -246,6 +247,7 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="john@example.com"
+                          autoComplete="email"
                         />
                       </div>
                     </div>
