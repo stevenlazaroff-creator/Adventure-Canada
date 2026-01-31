@@ -59,7 +59,7 @@ const regionViewBoxes: Record<string, string> = {
   western: '-27000 -14000 35000 32000',   // BC, AB, SK, MB
   eastern: '-8000 -8000 26000 26000',     // ON, QC - centered on Ontario and Quebec
   atlantic: '-2000 -10000 38000 28000',   // NB, NS, PE, NL
-  northern: '-26000 -17000 56000 28000',  // YT, NT, NU
+  northern: '-22000 -17000 42000 24000',  // YT, NT, NU - centered on territories
 };
 
 // Type for province data
