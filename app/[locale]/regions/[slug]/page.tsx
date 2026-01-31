@@ -3,7 +3,16 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { ListingCard } from '@/components/listings/ListingCard'
+import { RegionalMap } from '@/components/marketing/RegionalMap'
 import { ChevronLeft, MapPin } from 'lucide-react'
+
+// Map region slugs to region IDs for the map component
+const regionSlugToId: Record<string, 'western' | 'eastern' | 'atlantic' | 'northern'> = {
+  'western-canada': 'western',
+  'eastern-canada': 'eastern',
+  'atlantic-canada': 'atlantic',
+  'northern-canada': 'northern',
+}
 
 interface RegionPageProps {
   params: Promise<{
@@ -251,6 +260,20 @@ export default async function RegionPage({ params }: RegionPageProps) {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
+        {/* Regional Map - only show for main region pages, not individual provinces */}
+        {regionSlugToId[slug] && (
+          <div className="mb-12">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+              Explore Provinces in {region.name}
+            </h2>
+            <RegionalMap
+              locale={locale}
+              regionId={regionSlugToId[slug]}
+              regionSlug={slug}
+            />
+          </div>
+        )}
+
         {/* Activities in Region */}
         {activities && activities.length > 0 && (
           <div className="mb-12">

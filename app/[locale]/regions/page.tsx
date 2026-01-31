@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { MapPin } from 'lucide-react'
+import { CanadaMap } from '@/components/marketing/CanadaMap'
 
 export const metadata: Metadata = {
   title: 'Canadian Regions | Adventure Canada',
@@ -121,11 +121,21 @@ export default async function RegionsPage({ params }: RegionsPageProps) {
         </div>
       </div>
 
-      {/* Map Section - Placeholder */}
+      {/* Interactive Map Section */}
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-          <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600">Interactive map coming soon</p>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+            Click a region to explore
+          </h2>
+          <CanadaMap
+            locale={locale}
+            labels={{
+              western: 'Western Canada',
+              eastern: 'Eastern Canada',
+              atlantic: 'Atlantic Canada',
+              northern: 'Northern Canada',
+            }}
+          />
         </div>
       </div>
 

@@ -8,6 +8,7 @@ import { TIER_LIMITS } from '@/types'
 import { InquiryForm } from './InquiryForm'
 import { ImageGallery } from './ImageGallery'
 import { ListingCard } from '@/components/listings/ListingCard'
+import { ListingMap } from '@/components/listings/ListingMap'
 
 interface AdventurePageProps {
   params: Promise<{ slug: string; locale: string }>
@@ -226,6 +227,22 @@ export default async function AdventurePage({ params }: AdventurePageProps) {
                 </dl>
               </CardContent>
             </Card>
+
+            {/* Location Map */}
+            {listing.city && (
+              <Card>
+                <CardContent className="pt-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Location</h2>
+                  <ListingMap
+                    businessName={listing.name}
+                    address={listing.address || ''}
+                    city={listing.city}
+                    province={listing.regions?.name || ''}
+                    postalCode={listing.postal_code}
+                  />
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Sidebar */}
