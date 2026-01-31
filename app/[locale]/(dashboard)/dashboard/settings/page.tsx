@@ -195,6 +195,7 @@ export default function SettingsPage() {
               value={formData.business_name}
               onChange={handleChange}
               required
+              autoComplete="organization"
             />
 
             <Input
@@ -204,6 +205,7 @@ export default function SettingsPage() {
               value={formData.email}
               disabled
               hint={t('contactSupportEmail')}
+              autoComplete="email"
             />
 
             <Input
@@ -213,6 +215,7 @@ export default function SettingsPage() {
               value={formData.phone}
               onChange={handleChange}
               placeholder="+1 (555) 123-4567"
+              autoComplete="tel"
             />
 
             <Select
@@ -225,6 +228,7 @@ export default function SettingsPage() {
                 value: prov.code,
                 label: prov.name,
               }))}
+              autoComplete="address-level1"
             />
           </CardContent>
           <CardFooter>
@@ -261,6 +265,7 @@ export default function SettingsPage() {
               value={passwordData.newPassword}
               onChange={handlePasswordChange}
               placeholder={t('atLeast8Chars')}
+              autoComplete="new-password"
             />
 
             <Input
@@ -270,6 +275,7 @@ export default function SettingsPage() {
               value={passwordData.confirmPassword}
               onChange={handlePasswordChange}
               placeholder={t('confirmPasswordPlaceholder')}
+              autoComplete="new-password"
             />
           </CardContent>
           <CardFooter>
