@@ -104,13 +104,36 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
   const getProvinceFill = (provinceCode: string) => {
     const region = regionMapping[provinceCode];
     const isHovered = hoveredRegion === region;
+
+    // When zooming, only show provinces in the selected region
+    if (zoomingRegion && region !== zoomingRegion) {
+      return 'transparent';
+    }
+
     return isHovered ? '#9B1C31' : '#C41E3A';
   };
 
   const getProvinceStroke = (provinceCode: string) => {
     const region = regionMapping[provinceCode];
     const isHovered = hoveredRegion === region;
+
+    // When zooming, only show provinces in the selected region
+    if (zoomingRegion && region !== zoomingRegion) {
+      return 'transparent';
+    }
+
     return isHovered ? '#0033A0' : '#7a1528';
+  };
+
+  const getProvinceOpacity = (provinceCode: string) => {
+    const region = regionMapping[provinceCode];
+
+    // When zooming, fade out provinces not in the selected region
+    if (zoomingRegion && region !== zoomingRegion) {
+      return 0;
+    }
+
+    return 1;
   };
 
   const viewBoxString = `${currentViewBox.x} ${currentViewBox.y} ${currentViewBox.width} ${currentViewBox.height}`;
@@ -132,20 +155,24 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
             const region = regionMapping[code];
             const isRegionHovered = hoveredRegion === region;
 
+            const isInZoomedRegion = zoomingRegion === region;
+            const opacity = getProvinceOpacity(code);
+
             return (
               <path
                 key={code}
                 d={province.d}
                 fill={getProvinceFill(code)}
                 stroke={getProvinceStroke(code)}
-                strokeWidth={isRegionHovered ? 150 : 80}
+                strokeWidth={isRegionHovered || isInZoomedRegion ? 150 : 80}
                 strokeLinejoin="round"
-                className="cursor-pointer transition-all duration-200"
+                opacity={opacity}
+                className="cursor-pointer transition-all duration-700 ease-in-out"
                 style={{
-                  filter: isRegionHovered ? 'drop-shadow(0 200px 400px rgba(0, 0, 0, 0.3))' : 'none',
+                  filter: isRegionHovered && !zoomingRegion ? 'drop-shadow(0 200px 400px rgba(0, 0, 0, 0.3))' : 'none',
                 }}
-                onMouseEnter={() => setHoveredRegion(region)}
-                onMouseLeave={() => setHoveredRegion(null)}
+                onMouseEnter={() => !zoomingRegion && setHoveredRegion(region)}
+                onMouseLeave={() => !zoomingRegion && setHoveredRegion(null)}
                 onClick={() => handleProvinceClick(code)}
               >
                 <title>{province.name}</title>
@@ -155,10 +182,10 @@ export function CanadaMap({ locale, labels }: CanadaMapProps) {
         </svg>
       </div>
 
-      {/* Zooming indicator */}
+      {/* Zooming indicator - positioned at bottom */}
       {zoomingRegion && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg">
-          <div className="bg-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+          <div className="bg-white/95 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg flex items-center gap-3 border border-gray-200">
             <div className="w-5 h-5 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
             <span className="text-gray-700 font-medium">
               Exploring {regions.find(r => r.id === zoomingRegion)?.label}...
