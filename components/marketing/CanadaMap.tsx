@@ -41,11 +41,12 @@ const regionSlugs: Record<string, string> = {
 
 // ViewBox coordinates for zooming into each region
 // Format: { x, y, width, height }
+// Adjusted to ensure all provinces in each region are fully visible and centered
 const regionViewBoxes: Record<string, { x: number; y: number; width: number; height: number }> = {
-  western: { x: -26000, y: -8000, width: 22000, height: 22000 },
-  eastern: { x: -8000, y: -2000, width: 20000, height: 18000 },
-  atlantic: { x: 6000, y: -2000, width: 18000, height: 16000 },
-  northern: { x: -20000, y: -16500, width: 45000, height: 18000 },
+  western: { x: -27000, y: -14000, width: 35000, height: 32000 },   // BC, AB, SK, MB - wider to include Manitoba
+  eastern: { x: -14000, y: -10000, width: 32000, height: 30000 },   // ON, QC - includes all of Quebec
+  atlantic: { x: -2000, y: -10000, width: 38000, height: 28000 },   // NB, NS, PE, NL - includes Newfoundland
+  northern: { x: -26000, y: -17000, width: 56000, height: 28000 },  // YT, NT, NU - full width for territories
 };
 
 // Default viewBox for full Canada map
