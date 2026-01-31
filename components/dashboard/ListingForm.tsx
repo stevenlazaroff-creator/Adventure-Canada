@@ -236,7 +236,9 @@ export function ListingForm({ listing, tier, activities, regions }: ListingFormP
       router.refresh()
     } catch (err: any) {
       console.error('Error saving listing:', err)
-      setError(err.message || 'Failed to save listing')
+      console.error('Error details:', JSON.stringify(err, null, 2))
+      console.error('Listing data being sent:', JSON.stringify(listingData, null, 2))
+      setError(err.message || err.details || err.hint || 'Failed to save listing')
       setIsLoading(false)
     }
   }
