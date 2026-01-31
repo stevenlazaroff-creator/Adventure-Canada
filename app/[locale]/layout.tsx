@@ -5,6 +5,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { CookieConsent } from '@/components/CookieConsent';
 import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -61,6 +62,27 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="h-full">
       <head>
+        {/* Google Consent Mode - Default (must load before GTM) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'functionality_storage': 'denied',
+  'personalization_storage': 'denied',
+  'security_storage': 'granted',
+  'wait_for_update': 500
+});
+gtag('set', 'ads_data_redaction', true);
+gtag('set', 'url_passthrough', true);
+`,
+          }}
+        />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
@@ -90,6 +112,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <CookieConsent locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>
