@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS listings (
   website_url TEXT,
   address TEXT,
   city TEXT,
+  province TEXT,
   region_id UUID REFERENCES regions(id) ON DELETE SET NULL,
   postal_code TEXT,
   latitude DECIMAL(10, 8),
