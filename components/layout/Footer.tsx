@@ -18,7 +18,6 @@ export function Footer() {
     { name: 'Adventures', href: `/${locale}/adventures` },
     { name: tNav('activities'), href: `/${locale}/activities` },
     { name: tNav('regions'), href: `/${locale}/regions` },
-    { name: tNav('about'), href: `/${locale}/about` },
     { name: tNav('contact'), href: `/${locale}/contact` },
   ];
 
