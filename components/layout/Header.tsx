@@ -18,7 +18,6 @@ export function Header() {
   const navigation = [
     { name: t('activities'), href: `/${locale}/activities` },
     { name: t('regions'), href: `/${locale}/regions` },
-    { name: t('about'), href: `/${locale}/about` },
     { name: t('contact'), href: `/${locale}/contact` },
   ];
 
