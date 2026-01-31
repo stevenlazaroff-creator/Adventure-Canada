@@ -57,9 +57,9 @@ const provinceSlugs: Record<string, string> = {
 // Adjusted to ensure all provinces in each region are fully visible and centered
 const regionViewBoxes: Record<string, string> = {
   western: '-27000 -14000 35000 32000',   // BC, AB, SK, MB
-  eastern: '-8000 -8000 26000 26000',     // ON, QC - centered on Ontario and Quebec
-  atlantic: '6000 -4000 20000 18000',      // NB, NS, PE, NL - zoomed in and centered
-  northern: '-22000 -17000 42000 24000',  // YT, NT, NU - centered on territories
+  eastern: '-14000 -12000 36000 36000',   // ON, QC - zoomed out and centered
+  atlantic: '0 -4000 20000 18000',        // NB, NS, PE, NL - moved left to center
+  northern: '-16000 -14000 42000 24000',  // YT, NT, NU - moved right and down
 };
 
 // Type for province data
