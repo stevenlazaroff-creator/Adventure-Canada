@@ -36,15 +36,15 @@ export default async function DashboardLayout({
       {/* Top navigation */}
       <header className="bg-white border-b border-gray-200">
         <div className="container-wide">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-28 md:h-36 lg:h-44 items-center justify-between">
             <div className="flex items-center gap-8">
               <Link href={`/${locale}`}>
                 <Image
                   src={locale === 'fr' ? '/images/logo-fr.jpg' : '/images/logo-en.png'}
                   alt="Adventure Canada"
-                  width={150}
-                  height={40}
-                  className="h-10 w-auto"
+                  width={500}
+                  height={125}
+                  className="h-24 md:h-32 lg:h-40 w-auto"
                 />
               </Link>
             </div>

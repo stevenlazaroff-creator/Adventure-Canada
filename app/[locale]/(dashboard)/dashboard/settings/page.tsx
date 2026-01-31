@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { Button } from '@/components/ui/Button'
 import { createClient } from '@/lib/supabase/client'
+import { PROVINCES_TERRITORIES } from '@/lib/utils'
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -15,6 +17,7 @@ export default function SettingsPage() {
     business_name: '',
     email: '',
     phone: '',
+    province: '',
   })
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -51,6 +54,7 @@ export default function SettingsPage() {
           business_name: operator.business_name || '',
           email: operator.email || user.email || '',
           phone: operator.phone || '',
+          province: operator.province || '',
         })
       }
 
@@ -97,6 +101,7 @@ export default function SettingsPage() {
       .update({
         business_name: formData.business_name,
         phone: formData.phone || null,
+        province: formData.province || null,
       })
       .eq('id', user.id)
 
@@ -205,6 +210,18 @@ export default function SettingsPage() {
               value={formData.phone}
               onChange={handleChange}
               placeholder="+1 (555) 123-4567"
+            />
+
+            <Select
+              label="Province/Territory"
+              name="province"
+              value={formData.province}
+              onChange={(e) => setFormData((prev) => ({ ...prev, province: e.target.value }))}
+              placeholder="Select a province/territory"
+              options={PROVINCES_TERRITORIES.map((prov) => ({
+                value: prov.code,
+                label: prov.name,
+              }))}
             />
           </CardContent>
           <CardFooter>
